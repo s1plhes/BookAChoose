@@ -1,0 +1,98 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+/*  
+npx tailwindcss -i ./src/assets/input.css -o ./src/assets/main.css --watch
+*/
+body {
+  background-image: url('https://www.transparenttextures.com/patterns/inspiration-geometry.png');
+  font-family: 'Ubuntu', sans-serif;
+}
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+
+.ubuntu-light {
+  font-family: 'Ubuntu', sans-serif;
+  font-weight: 300;
+  font-style: normal;
+}
+
+.ubuntu-regular {
+  font-family: 'Ubuntu', sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.ubuntu-medium {
+  font-family: 'Ubuntu', sans-serif;
+  font-weight: 500;
+  font-style: normal;
+}
+
+.ubuntu-bold {
+  font-family: 'Ubuntu', sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.ubuntu-light-italic {
+  font-family: 'Ubuntu', sans-serif;
+  font-weight: 300;
+  font-style: italic;
+}
+
+.ubuntu-regular-italic {
+  font-family: 'Ubuntu', sans-serif;
+  font-weight: 400;
+  font-style: italic;
+}
+
+.ubuntu-medium-italic {
+  font-family: 'Ubuntu', sans-serif;
+  font-weight: 500;
+  font-style: italic;
+}
+
+.ubuntu-bold-italic {
+  font-family: 'Ubuntu', sans-serif;
+  font-weight: 700;
+  font-style: italic;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  border: 1px solid #eab308;
+  -webkit-text-fill-color: #eab308;
+  -webkit-box-shadow: 0 0 0px 1000px #020617 inset;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-white text-slate-950 hover:bg-slate-300 hover:text-slate-950 focus:outline-none;
+  }
+  .btn-danger {
+    @apply bg-red-700 hover:bg-red-800 focus:outline-none;
+  }
+  .input {
+    @apply mt-1 block w-full px-4 py-2 border
+    bg-transparent text-slate-50 border-slate-800 rounded-md shadow-sm placeholder-slate-300 focus:outline-none
+     ring-yellow-950 focus:ring-yellow-500 focus:border-yellow-500 sm:text-sm;
+  }
+  .success-btn {
+    @apply bg-gradient-to-r from-slate-600/10 via-slate-800/30 to-slate-700/10 hover:bg-green-600 text-slate-200 font-sans backdrop-blur-xl hover:text-white backdrop-filter focus:outline-none;
+  }
+  input:auto-fill {
+    @apply bg-slate-800 text-yellow-500;
+  }
+
+  input:-webkit-autofill {
+    @apply bg-slate-950 text-yellow-500;
+  }
+}
