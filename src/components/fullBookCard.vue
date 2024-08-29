@@ -1,39 +1,49 @@
 <script setup>
-defineProps({
+const props = defineProps({
     book: {
-        title: String,
-        author: String,
-        description: String,
-        id: Number
+        type: Object,
+        required: true,
+        default: () => ({
+            title: "",
+            author: "",
+            description: "",
+            id: 0,
+        }),
     },
-    style: String
-})
+    style: {
+        type: String,
+        default: "",
+    },
+});
+
+const { title, author, description, id } = props.book;
 </script>
 
 <template>
-    <article class="p-6 rounded-lg shadow-lg space-y-4 max-w-md mx-auto bg-center bg-no-repeat bg-cover min-h-48"
-        :style="`
-        background: linear-gradient(rgba(2, 6, 23, 0.85), rgba(0, 0, 0, 0.9)), url('${style}');
-        background-size: 100% 100% ;min-height: 35.5vmin;
-    `">
-        <div class="space-y-2">
-            <h1 class="text-3xl font-bold font-mono line-clamp-2 text-white leading-tight tracking-wide">
-                {{ book.title }}
-            </h1>
-            <p class="text-gray-300 font-mono">
-                <a :href="`/${book.author}`" class="hover:underline">
-                    by {{ book.author }}{{ book.avatar }}
-                </a>
-            </p>
+    <article
+        class="relative p-4 rounded-lg shadow-lg space-y-4 max-w-lg mx-auto bg-center bg-no-repeat bg-cover min-h-48"
+        :style="`background: linear-gradient(rgba(2, 6, 23, -0.15), rgba(0, 0, 0, 5.9)), url(${style}); background-size: cover; min-height: 35.5vmin;`">
+        <div class="">
+
+            <div class="space-y-2  bg-slate-900/30 backdrop-blur-md rounded-md p-2 text-slate-100">
+                <h1 class="text-2xl font-bold font-mono line-clamp-2 leading-tight tracking-wide">
+                    {{ title }}
+                </h1>
+                <p class="font-mono">
+                    <a :href="`/${author}`" class="hover:underline">
+                        by {{ author }}
+                    </a>
+                </p>
+                <div class="hover:visible text-white text-sm line-clamp-5 leading-relaxed">
+                    <p>{{ description }}</p>
+                </div>
+            </div>
+            <footer class="absolute inset-x-0 bottom-0 flex justify-center mt-6">
+                <Btn variant="yellow" :href="`/book/${id}`" class="px-6 py-2 my-3 text-lg rounded-full">
+                    Read this book
+                </Btn>
+            </footer>
         </div>
-        <div class="text-slate-100 text-sm line-clamp-5 leading-relaxed">
-            <p>{{ book.description }}</p>
-        </div>
-        <footer class="flex justify-center mt-6">
-            <Btn variant="primary" :href="`/book/${book.id}`" class="px-6 py-2 text-lg rounded-full">
-                Read this book
-            </Btn>
-        </footer>
     </article>
 </template>
 

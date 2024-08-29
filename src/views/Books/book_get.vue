@@ -13,17 +13,13 @@
   <div class="px-6 max-w-6xl mx-auto">
     <!-- Back Button and Divider -->
     <div class="mt-6">
-
       <Separator />
     </div>
     <div v-if="bookData && bookData.title">
-
       <!-- Tools toolbar -->
       <Btn class="mb-6" variant="primary" :href="`/books/`"> ← Back </Btn>
       <div v-if="user" class="p-2 my-3 backdrop-blur-sm bg-slate-900/20 rounded w-fit">
-
-        <div v-if="bookData.author === user.name" class="space-x-4">
-
+        <div v-if="bookData.author === user.name || user.role === 'admin'" class="space-x-4">
           <Btn variant="primary" :href="`/book/${bookData.id}/edit`"> Edit Book </Btn>
           <Btn variant="danger" @click="showModal = true"> Delete book </Btn>
           <Btn variant="success" :href="`/book/${bookData.id}/chapter/create`">
@@ -33,45 +29,48 @@
       </div>
       <!-- Tools toolbar -->
       <div class="grid lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-1 clearfix mb-3 space-x-8">
-        <div class="mx-auto backdrop-blur-sm bg-slate-900/30 p-3 rounded h-fit">
+        <div class="mx-auto bg-glass p-3 rounded h-fit">
           <!-- Book Title & Author -->
           <h1 class="text-3xl font-bold text-zinc-50">{{ bookData.title }}</h1>
-          <p class="text-lg text-zinc-100">By <img :src="bookData.avatar">
-            <RouterLink class="text-yellow-500" :to="`/${bookData.author}`"> {{
-              bookData.author }}
+          <p class="text-lg text-zinc-100">
+            By <img :src="bookData.avatar" />
+            <RouterLink class="text-yellow-500" :to="`/${bookData.author}`">
+              {{ bookData.author }}
             </RouterLink>
           </p>
           <!-- Book Title & Author -->
           <!-- LIKE SYSTEM -->
 
-          <div class=" inline-flex items-center space-x-5 text-white">
-            <LikeBtn :userId :bookId chapterId="0" />
-            <div class="space-x-1"><i class="fa fa-heart mx-2"></i> {{ likesCount }} Likes
+          <div v-if="user" class="inline-flex items-center space-x-5 text-white">
+            <LikeBtn :userId="user.id" :bookId chapterId="0" />
+            <div class="space-x-1">
+              <i class="fa fa-heart mx-2"></i> {{ likesCount }} Likes
             </div>
           </div>
           <!-- LIKE SYSTEM -->
           <!-- Book Cover -->
           <div class="flex justify-center items-center self-center">
             <img v-motion-roll-visible-once-bottom class="object-scale-down object-center w-2/4 rounded hover:scale-150"
-              :src="bookData.image">
+              :src="bookData.image" />
           </div>
           <!-- Book Cover -->
           <!-- Data -->
           <!-- Description -->
           <div id="description" class="text-slate-50">
             <p class="mt-2 p-3 text-zinc-100">Description:</p>
-            <p class="mt-2 p-3 text-zinc-100 bg-slate-800/40 backdrop-blur-sm">{{ bookData.description }}</p>
+            <p class="mt-2 p-3 text-zinc-100 bg-glass">
+              {{ bookData.description }}
+            </p>
           </div>
           <!-- Description -->
           <!-- Data -->
           <div class="text-slate-200 p-2 text-xs">
-
             <p>Published date: {{ formatDate(bookData.created_at) }}</p>
             <p>Last edit: {{ formatDate(bookData.created_at) }}</p>
           </div>
           <!-- Data -->
         </div>
-        <div class="backdrop-blur-sm bg-slate-900/20 p-3 rounded h-fit">
+        <div class="bg-glass p-3 rounded h-fit sm:mt-6 md:mt-4 mt-4">
           <!-- Chapters List -->
           <div>
             <h2 class="text-2xl font-bold text-zinc-50">Chapters</h2>
@@ -81,9 +80,7 @@
                   <RouterLink v-for="chapter in chapters" :key="chapter.chapter_id"
                     :to="`/book/${chapter.book_id}/chapter/${chapter.chapter_id}`" size="small" variant="text"
                     class="w-full text-left text-zinc-100">
-                    <li class="p-2 my-2 
-                      backdrop-blur-sm bg-slate-900/60 rounded
-                      hover:bg-slate-500/50">
+                    <li class="p-2 my-2 backdrop-blur-sm bg-slate-800/60 rounded hover:bg-slate-500/50">
                       {{ chapter.part.title }}
                     </li>
                   </RouterLink>
@@ -114,7 +111,6 @@
       <Btn variant="danger" @click="deleteBook">Delete</Btn>
     </div>
   </Modal>
-
 </template>
 
 <script setup>
@@ -122,10 +118,9 @@ import { ref, onMounted } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import axios from "axios";
 import { user } from "../../mixins/authMixin";
-import { Head } from '@unhead/vue/components'
+import { Head } from "@unhead/vue/components";
 import { formatDate } from "../../plugins/formatDate";
 import Cookies from "js-cookie";
-
 
 const route = useRoute();
 const router = useRouter(); //for delete
@@ -135,10 +130,8 @@ const bookData = ref({});
 const chapters = ref([]);
 const id = route.params.bookId;
 const showModal = ref(false);
-const userId = user.value.userId;
 const bookId = route.params.bookId;
 const likesCount = ref(0);
-
 
 const fetchABook = async () => {
   console.log("Fetching book...");
@@ -163,15 +156,14 @@ const fetchChapters = async () => {
 };
 
 const deleteBook = async () => {
-  const token = Cookies.get('accessToken');
+  const token = Cookies.get("accessToken");
   if (deletePhrase.value === "DELETE") {
     try {
       await axios.delete(`http://localhost:3000/api/book/delete/${id}`, {
         headers: {
-          'Authorization': `Bearer ${token}`
-        }
-      }
-      );
+          Authorization: `Bearer ${token}`,
+        },
+      });
       alert("Book deleted successfully");
       router.back();
     } catch (error) {
@@ -196,14 +188,14 @@ const getLikes = async () => {
     const { data } = await axios.get(`http://localhost:3000/api/count/likes/${bookId}/0`);
 
     // Extract 'likes' from the response data
-    if (data && typeof data.likes === 'number') {
+    if (data && typeof data.likes === "number") {
       likesCount.value = data.likes;
-      console.log('Likes count:', likesCount.value);
+      console.log("Likes count:", likesCount.value);
     } else {
-      console.error('Unexpected response structure:', data);
+      console.error("Unexpected response structure:", data);
     }
   } catch (error) {
-    console.error('Error getting likes', error);
+    console.error("Error getting likes", error);
   }
 };
 
@@ -213,8 +205,6 @@ onMounted(() => {
   fetchChapters();
 });
 </script>
-
-
 
 <style scoped>
 .book-cover {

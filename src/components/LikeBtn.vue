@@ -13,7 +13,9 @@
 
 <script setup>
 import { getCurrentInstance } from 'vue';
+import { useRouter } from 'vue-router';
 
+const router = useRouter();
 const props = defineProps({
     userId: String,
     bookId: String,
@@ -28,10 +30,12 @@ const likeData = proxy.$likeSystem.likeData;
 
 const handleLike = () => {
     proxy.$likeSystem.Like(props.userId, props.bookId, props.chapterId);
+    router.go(0)
 }
 
 const handleDelLike = () => {
     proxy.$likeSystem.DelLike(props.userId, props.bookId, props.chapterId);
+    router.go(0)
 }
 
 // Opcional: Llamar fetchLike para inicializar los datos si es necesario

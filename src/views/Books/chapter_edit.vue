@@ -7,6 +7,7 @@ import 'trix/dist/trix.js'
 import { checkAuth } from '@/plugins/checkAuth'
 import { user } from '@/mixins/authMixin'
 import Cookies from 'js-cookie'
+import { Head } from '@unhead/vue/components'
 
 
 const token = Cookies.get('accessToken')
@@ -69,8 +70,14 @@ onMounted(() => {
 </script>
 
 <template>
-    <main class="max-w-screen-lg mx-auto p-3">
-        <div class="container text-white space-y-4">
+
+    <Head>
+        <title>
+            Edit {{ title }} | {{ SITE_NAME }}
+        </title>
+    </Head>
+    <div class="container max-w-8xl mx-auto p-3 min-h-fit h-full">
+        <div class=" text-white space-y-4">
             <h2 class="text-2xl text-center font-semibold">Edit a Chapter</h2>
             <p class="text-xl text-center"> {{ title }} by {{ editor }}</p>
             <p class="text-center text-sm text-gray-400">Last Update: {{ update_at }}</p>
@@ -93,5 +100,7 @@ onMounted(() => {
                 <Btn variant="primary">Submit</Btn>
             </div>
         </form>
-    </main>
+
+
+    </div>
 </template>

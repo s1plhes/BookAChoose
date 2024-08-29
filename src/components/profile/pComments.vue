@@ -14,7 +14,9 @@ const userId = user.value.userId;
 const route = useRoute();
 const comments = ref([]);
 const newComment = ref('');
-const replyTo = ref(null); // Para almacenar el comentario al que se está respondiendo
+const replyTo = ref(null);
+
+// Para almacenar el comentario al que se está respondiendo
 
 
 const userName = route.params.username; // Deberás obtener esto dinámicamente en tu aplicación
@@ -24,6 +26,7 @@ onMounted(async () => {
     try {
         const response = await axios.get(`http://localhost:3000/api/comments/p/${userName}`);
         comments.value = buildCommentTree(response.data);
+        console.log("Executed query with profile_id:", user.id);
     } catch (error) {
         console.error("Error loading comments:", error);
     }

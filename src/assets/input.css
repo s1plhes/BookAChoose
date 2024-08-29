@@ -4,11 +4,28 @@
 /*  
 npx tailwindcss -i ./src/assets/input.css -o ./src/assets/main.css --watch
 */
-body {
+body::-webkit-scrollbar {
+  width: 1em;
+}
+ 
+body::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+ 
+body::-webkit-scrollbar-thumb {
+  background-color: #1e293b;
+}
+#app {
   background-image: url('https://www.transparenttextures.com/patterns/inspiration-geometry.png');
   font-family: 'Ubuntu', sans-serif;
 }
 @import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75,200..800&display=swap');
+
+.brico{
+  font-family: 'Bricolage Grotesque' sans-serif;
+  font-weight: 300;
+}
 
 .ubuntu-light {
   font-family: 'Ubuntu', sans-serif;
@@ -87,6 +104,9 @@ select:-webkit-autofill:focus {
   }
   .success-btn {
     @apply bg-gradient-to-r from-slate-600/10 via-slate-800/30 to-slate-700/10 hover:bg-green-600 text-slate-200 font-sans backdrop-blur-xl hover:text-white backdrop-filter focus:outline-none;
+  }
+  .bg-glass{
+    @apply bg-gradient-to-r from-slate-600/10 via-slate-800/30 to-slate-700/10 backdrop-blur-sm backdrop-filter rounded-sm
   }
   input:auto-fill {
     @apply bg-slate-800 text-yellow-500;

@@ -28,7 +28,7 @@ const logout = async () => {
             message.value = 'You have been logged out successfully!';
             setTimeout(() => {
                 window.location.href = '/login';
-            }, 2000);
+            }, 800);
 
         } else {
             error.value = response.data.message || 'Unknown error';

@@ -7,6 +7,7 @@ import Separator from '@/components/Separator.vue';
 import { checkAuth } from '@/plugins/checkAuth';
 import Cookies from 'js-cookie';
 import ErrorMessage from '@/components/ErrorMessage.vue';
+import { Head } from '@unhead/vue/components';
 
 
 const router = useRouter();
@@ -106,9 +107,17 @@ onMounted(() => {
 </script>
 
 <template>
-    <main class="px-6 max-w-2xl w-full mx-auto">
+
+    <Head>
+        <title>
+            Create book | {{ SITE_NAME }}
+        </title>
+    </Head>
+
+    <section class="px-6 max-w-6xl w-full mx-auto h-full min-h-screen">
         <form @submit="createBook">
             <h1 class="text-xl font-bold text-slate-100 mb-6">Create a New Book</h1>
+            <h2 class="text-slate-200">Welcome to the Book creation wizard</h2>
             <Separator />
             <div class="grid grid-cols-2 space-x-12">
                 <!-- column 1-->
@@ -123,27 +132,28 @@ onMounted(() => {
                         <input type="text" id="author" v-model="author" placeholder="Enter the book author"
                             class="input cursor-not-allowed" />
                     </div>
-                </div>
-                <!-- column 2-->
-                <div>
                     <div class="mb-4">
                         <label for="description" class="block text-sm font-medium text-white">Description</label>
                         <textarea id="description" v-model="description" required
                             placeholder="Enter the book description" class="input transit
                                 ion duration-200 resize-none h-32"></textarea>
                     </div>
+                </div>
+                <!-- column 2-->
+                <div>
+
                     <div class="mb-4">
                         <label for="image" class="block text-sm font-medium text-white">Image URL</label>
                         <input type="file" id="image" @change="handleFileUpload" class="input" />
                     </div>
                 </div>
             </div>
-            <Btn class="w-1/4 flex justify-center" variant="fullyellow" type="submit">Create Book</Btn>
+            <Btn class="w-1/4 flex justify-center" variant="yellow" type="submit">Create Book</Btn>
         </form>
         <ErrorMessage :message="message" type="error" :autoClose="false" :autoCloseDelay="5000" />
         <Separator />
         <Back />
-    </main>
+    </section>
 </template>
 
 <style scoped>

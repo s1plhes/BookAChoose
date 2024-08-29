@@ -138,7 +138,6 @@ onMounted(() => {
     } else {
         errorMessage.value = 'User is not authenticated';
     }
-
     checkAuth(user)
 });
 </script>
@@ -160,8 +159,17 @@ onMounted(() => {
                 <div>
                     <div class="mb-4">
 
-                        <label for="name" class="block text-xs font-medium text-slate-100">Avatar URL</label>
-                        <input type="file" id="avatar" @change="handleFileUpload" class="input">
+
+                        <label for="file" class="text-white text-sm">Avatar
+
+                            <input type="file" name="file" id="file" @change="handleFileUpload" class="text-sm text-grey-500
+            file:mr-2 file:py-3 file:px-4
+            file:rounded-lg file:border-0
+            file:text-md file:font-semibold  file:text-black
+            file:bg-yellow-500 
+            hover:file:cursor-pointer hover:file:opacity-80
+          " />
+                        </label>
                     </div>
                     <div class="mb-4">
                         <label for="name" class="block text-xs font-medium text-slate-100">Name</label>

@@ -6,8 +6,10 @@ import axios from 'axios';
 import 'trix/dist/trix.css';
 import 'trix/dist/trix.js';
 import Separator from '@/components/Separator.vue';
+import { Head } from '@unhead/vue/components';
 import { checkAuth } from '@/plugins/checkAuth';
 import Cookies from 'js-cookie';
+
 
 const route = useRoute();
 const router = useRouter();
@@ -61,6 +63,8 @@ onMounted(() => {
 </script>
 
 <template>
+
+
     <div class="p-6 max-w-3xl mx-auto bg-slate-900/50 backdrop-blur-sm">
         <!-- Back Button and Divider -->
         <a class="px-4 py-1 bg-zinc-100 text-sm text-zinc-800 font-semibold rounded hover:text-black hover:bg-zinc-300 hover:border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-offset-2"
@@ -101,6 +105,12 @@ onMounted(() => {
         <div v-else>
             <p class="text-center text-red-600">You must be logged in to create a chapter.</p>
         </div>
+
+        <Head>
+            <title>
+                Create chapter for {{ title }} | {{ SITE_NAME }}
+            </title>
+        </Head>
     </div>
 </template>
 
