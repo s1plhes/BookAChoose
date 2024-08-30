@@ -38,11 +38,7 @@
         </form>
         <!-- Separator -->
         <hr class="my-6 border-gray-300" />
-
-
-
         <!-- Google Login Button -->
-
         <button type="button"
           class="w-full bg-white hover:bg-gray-100 focus:bg-gray-100 text-gray-900 font-semibold rounded-lg px-4 py-3 border border-gray-300 flex items-center justify-center transition duration-300 ease-in-out">
           <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="w-6 h-6"
@@ -91,6 +87,7 @@ const errorMessage = ref("");
 const successMessage = ref("");
 const loading = ref(false);
 const router = useRouter();
+const API_URL = import.meta.env.VITE_APP_API;
 
 const validateForm = () => {
   if (!email.value || !password.value) {
@@ -103,28 +100,37 @@ const validateForm = () => {
 const login = async () => {
   if (!validateForm()) return;
   loading.value = true;
+
   try {
-    const response = await axios.post("http://localhost:3000/api/login", {
+    const response = await axios.post(`${API_URL}/login`, {
       email: email.value,
       password: password.value,
     });
 
-    if (response.status === 200) {
-      // Login successful
-      errorMessage.value = "";
+    if (response.status === 200 && response.data.accessToken) {
       const accessToken = response.data.accessToken;
-      Cookies.set("accessToken", accessToken, { expires: 30 });
-      const decodedJWT = decodeJWT(Cookies.get("accessToken"));
-      const get_user_data = await axios.get(
-        `http://localhost:3000/api/users/${decodedJWT.userId}`
-      );
-      user.value = get_user_data.data.value;
+      Cookies.set("accessToken", accessToken, { expires: 7 });
 
-      setTimeout(() => {
-        router.push("/"); // Redirigir a la página de inicio o la ruta deseada
-      }, 1500); // Retraso antes de redirigir
+      const decodedJWT = decodeJWT(accessToken);
+      if (decodedJWT && decodedJWT.userId) {
+        const userResponse = await axios.get(`${API_URL}/users/${decodedJWT.userId}`);
+
+        if (userResponse.status === 200 && userResponse.data) {
+          user.value = userResponse.data;
+          Cookies.set("avatar", user.value.avatar, { expires: 7 });
+          Cookies.set("name", user.value.name, { expires: 7 });
+          Cookies.set("user", JSON.stringify(user.value), { expires: 7 });
+          //successMessage.value = "Login successful!";
+          setTimeout(() => {
+            router.push("/"); // Redirigir a la página de inicio o la ruta deseada
+          }, 800);
+        } else {
+          errorMessage.value = "Failed to fetch user data.";
+        }
+      } else {
+        errorMessage.value = "Invalid token or user ID.";
+      }
     } else {
-      // Manejar otros códigos de respuesta si es necesario
       errorMessage.value = "An unknown error occurred. Please try again.";
     }
   } catch (error) {
@@ -140,17 +146,13 @@ const login = async () => {
           errorMessage.value = "An unknown error occurred.";
       }
     } else {
-      // Error sin respuesta del servidor (posible problema de red)
-      Cookies.set("avatar", user.value.avatar, { expires: 30 });
-      Cookies.set("name", user.value.name, { expires: 30 });
-      Cookies.set("user", JSON.stringify(user.value), { expires: 30 });
-      // Establecer el successMessage y redirigir después de un pequeño retraso
-      successMessage.value = "Login successful!";
+      errorMessage.value = "Network error. Please check your connection.";
     }
   } finally {
     loading.value = false;
   }
 };
+
 </script>
 
 <style scoped>

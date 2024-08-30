@@ -11,15 +11,11 @@
     <meta name="author" :content="bookData.author" />
   </Head>
   <div class="px-6 max-w-6xl mx-auto">
-    <!-- Back Button and Divider -->
-    <div class="mt-6">
-      <Separator />
-    </div>
     <div v-if="bookData && bookData.title">
       <!-- Tools toolbar -->
-      <Btn class="mb-6" variant="primary" :href="`/books/`"> ← Back </Btn>
+      <Btn class="mb-10" variant="primary" :href="`/books/`"> ← Back </Btn>
       <div v-if="user" class="p-2 my-3 backdrop-blur-sm bg-slate-900/20 rounded w-fit">
-        <div v-if="bookData.author === user.name || user.role === 'admin'" class="space-x-4">
+        <div v-if='bookData.author === user.name || user.role === "admin"' class="space-x-4">
           <Btn variant="primary" :href="`/book/${bookData.id}/edit`"> Edit Book </Btn>
           <Btn variant="danger" @click="showModal = true"> Delete book </Btn>
           <Btn variant="success" :href="`/book/${bookData.id}/chapter/create`">
@@ -32,8 +28,7 @@
         <div class="mx-auto bg-glass p-3 rounded h-fit">
           <!-- Book Title & Author -->
           <h1 class="text-3xl font-bold text-zinc-50">{{ bookData.title }}</h1>
-          <p class="text-lg text-zinc-100">
-            By <img :src="bookData.avatar" />
+          <p class="text-lg text-zinc-100">By
             <RouterLink class="text-yellow-500" :to="`/${bookData.author}`">
               {{ bookData.author }}
             </RouterLink>
@@ -50,8 +45,7 @@
           <!-- LIKE SYSTEM -->
           <!-- Book Cover -->
           <div class="flex justify-center items-center self-center">
-            <img v-motion-roll-visible-once-bottom class="object-scale-down object-center w-2/4 rounded hover:scale-150"
-              :src="bookData.image" />
+            <img class="object-scale-down object-center w-2/4 rounded" :src="bookData.image" />
           </div>
           <!-- Book Cover -->
           <!-- Data -->
@@ -122,6 +116,7 @@ import { Head } from "@unhead/vue/components";
 import { formatDate } from "../../plugins/formatDate";
 import Cookies from "js-cookie";
 
+const admin = ref("admin")
 const route = useRoute();
 const router = useRouter(); //for delete
 const deletePhrase = ref(""); //for delete
@@ -132,11 +127,12 @@ const id = route.params.bookId;
 const showModal = ref(false);
 const bookId = route.params.bookId;
 const likesCount = ref(0);
+const API_URL = import.meta.env.VITE_APP_API;
 
 const fetchABook = async () => {
   console.log("Fetching book...");
   try {
-    const { data } = await axios.get(`http://localhost:3000/api/book/${id}`);
+    const { data } = await axios.get(`${API_URL}/book/${id}`);
     bookData.value = data;
 
     console.log("Book data:", data);
@@ -148,7 +144,7 @@ const fetchABook = async () => {
 const fetchChapters = async () => {
   console.log("Fetching chapters...");
   try {
-    const { data } = await axios.get(`http://localhost:3000/api/allchapters/${id}`);
+    const { data } = await axios.get(`${API_URL}/allchapters/${id}`);
     chapters.value = data;
   } catch (error) {
     console.error("Error fetching chapters:", error);
@@ -159,7 +155,7 @@ const deleteBook = async () => {
   const token = Cookies.get("accessToken");
   if (deletePhrase.value === "DELETE") {
     try {
-      await axios.delete(`http://localhost:3000/api/book/delete/${id}`, {
+      await axios.delete(`${API_URL}/book/delete/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -185,7 +181,7 @@ const deleteBook = async () => {
 
 const getLikes = async () => {
   try {
-    const { data } = await axios.get(`http://localhost:3000/api/count/likes/${bookId}/0`);
+    const { data } = await axios.get(`${API_URL}/count/likes/${bookId}/0`);
 
     // Extract 'likes' from the response data
     if (data && typeof data.likes === "number") {
@@ -203,6 +199,7 @@ onMounted(() => {
   fetchABook();
   getLikes();
   fetchChapters();
+  console.log(user)
 });
 </script>
 

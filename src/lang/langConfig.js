@@ -2,7 +2,7 @@
 import { createI18n } from 'vue-i18n';
 import Cookies from 'js-cookie';
 
-const savedLang = Cookies.get('lang') || 'es'; // Fallback a 'es' si no hay cookie
+const savedLang = Cookies.get('lang') || 'en'; // Fallback a 'es' si no hay cookie
 
 export const formatDate = (dateString) => {
     const options = { year: "numeric", month: "long", day: "numeric", hour: "numeric", minute: "numeric" };

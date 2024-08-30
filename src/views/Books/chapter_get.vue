@@ -5,23 +5,26 @@ import { user } from "../../mixins/authMixin";
 import { Head } from "@unhead/vue/components";
 import axios from "axios";
 import Separator from "@/components/Separator.vue";
+import Cookies from "js-cookie";
+
 
 const route = useRoute();
 const bookData = ref(null);
 const chapterData = ref(null);
 const id = route.params.chapterId;
-const fontSize = ref(18);
+const fontSize = ref(Cookies.get("fontSize") || 18);
 const viewRecorded = ref(false);
 //Setting if for the API call
 const bookId = route.params.bookId;
 const chapterId = route.params.chapterId;
 const likesCount = ref(0);
 const paragraphsId = ref(1);
+const API_URL = import.meta.env.VITE_APP_API;
 
 const fetchABook = async () => {
   try {
     const { data } = await axios.get(
-      `http://localhost:3000/api/book/${bookId}/chapter/${chapterId}`
+      `${API_URL}/book/${bookId}/chapter/${chapterId}`
     );
     bookData.value = data;
     chapterData.value = formatTextLikeBook(data.body);
@@ -50,7 +53,7 @@ const decreaseFontSize = () => {
 const recordView = async () => {
   if (!viewRecorded.value) {
     try {
-      await axios.post(`http://localhost:3000/api/chapter/${id}/view`);
+      await axios.post(`${API_URL}/chapter/${id}/view`);
       viewRecorded.value = true;
       console.log("View recorded");
     } catch {
@@ -61,7 +64,7 @@ const recordView = async () => {
 const getLikes = async () => {
   try {
     const { data } = await axios.get(
-      `http://localhost:3000/api/count/likes/${bookId}/${chapterId}`
+      `${API_URL}/count/likes/${bookId}/${chapterId}`
     );
 
     // Extract 'likes' from the response data
@@ -146,8 +149,11 @@ onUnmounted(() => {
     </div>
     <hr class="border-gray-700/20 my-4" />
 
-    <div v-if="chapterData" v-html="chapterData" :style="{ fontSize: fontSize + 'px' }"
-      class="text-zinc-300 leading-relaxed first-line:uppercase first-line:tracking-widest first-letter:text-slate-900 first-letter:text-7xl first-letter:leading-none first-letter:float-left first-letter:font-bold first-letter:mr-3 dark:first-letter:text-white">
+    <div v-if="chapterData" v-html="chapterData" :style="{ fontSize: fontSize + 'px' }" class="text-zinc-300 leading-relaxed first-line:uppercase first-line:tracking-widest
+       first-letter:text-slate-900 first-letter:text-7xl first-letter:leading-none 
+       first-letter:float-left first-letter:font-bold first-letter:mr-3 dark:first-letter:text-white
+       text-justify
+       ">
     </div>
 
     <div class="mt-6 py-6 flex justify-center">

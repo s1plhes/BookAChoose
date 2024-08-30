@@ -7,24 +7,23 @@ import { onMounted, ref } from 'vue';
 
 const message = ref('');
 const error = ref('');
-
+const API_URL = import.meta.env.VITE_APP_API;
 
 const logout = async () => {
+    const token = Cookies.get('accessToken');
     try {
-        const token = Cookies.get('accessToken');
-        const refreshToken = Cookies.get('refreshToken');
-
-        const response = await axios.post('http://localhost:3000/api/logout', { refreshToken }, {
+        const response = await axios.post(`${API_URL}/logout`, {}, {
             headers: {
-                'Authorization': `Bearer ${token}`
-            }
-        }
-        );
-        if (response.status === 200) {
-            Cookies.remove('accessToken');
-            Cookies.remove('refreshToken');
-            localStorage.clear();
+                Authorization: `Bearer ${token}`,
+            },
+        });
 
+        if (response.status === 200) {
+            localStorage.clear();
+            Cookies.remove('accessToken');
+            Cookies.remove('avatar');
+            Cookies.remove('name');
+            //Cookies.remove('user');
             message.value = 'You have been logged out successfully!';
             setTimeout(() => {
                 window.location.href = '/login';
@@ -39,14 +38,12 @@ const logout = async () => {
     }
 };
 
-
 onMounted(() => {
     logout();
-    onMounted(() => {
-        checkAuth(user);
-    });
+    checkAuth(user);
 });
 </script>
+
 
 <template>
     <div class="logout-container">

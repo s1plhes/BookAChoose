@@ -18,6 +18,7 @@ const chapterContent = ref('');
 const message = ref('');
 const bookId = route.params.bookId;
 const bookData = ref({});
+const API_URL = import.meta.env.VITE_APP_API;
 
 const updateChapterContent = (event) => {
     chapterContent.value = event.target.innerHTML; // Captura el contenido HTML de Trix
@@ -25,7 +26,7 @@ const updateChapterContent = (event) => {
 
 const fetchBookData = async () => {
     try {
-        const response = await axios.get(`http://localhost:3000/api/book/${bookId}`);
+        const response = await axios.get(`${API_URL}/book/${bookId}`);
         bookData.value = response.data;
     } catch (error) {
         console.error(error);
@@ -37,14 +38,14 @@ const createChapter = async (event) => {
     event.preventDefault();
     const token = Cookies.get('accessToken');
     try {
-        const response = await axios.post('http://localhost:3000/api/chapter/create', {
+        const response = await axios.post(`${API_URL}/chapter/create`, {
             book_id: bookId,
             title: chapterTitle.value,
             body: chapterContent.value
         },
             {
                 headers: {
-                    Authorization: `Bearer ${token}`  // Include the token in the Authorization header
+                    Authorization: `Bearer ${token}`
                 }
             });
         message.value = `Chapter created successfully with ID: ${response.data.id}`;

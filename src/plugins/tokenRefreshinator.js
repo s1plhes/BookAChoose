@@ -2,6 +2,7 @@
 
 import axios from 'axios';
 
+const API_URL = import.meta.env.VITE_APP_API;
 axios.interceptors.response.use(
     (response) => response,
     async (error) => {
@@ -12,7 +13,7 @@ axios.interceptors.response.use(
             const refreshToken = localStorage.getItem('refreshToken');
             if (refreshToken) {
                 try {
-                    const response = await axios.post('http://localhost:3000/api/refresh-token', {}, {
+                    const response = await axios.post(`${API_URL}/api/refresh-token`, {}, {
                         headers: {
                             'Authorization': `Bearer ${refreshToken}`
                         }

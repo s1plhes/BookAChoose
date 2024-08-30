@@ -32,6 +32,7 @@ const query = ref('');
 const results = ref([]);
 const loading = ref(false);
 const searchModal = ref(false);
+const API_URL = import.meta.env.VITE_APP_API;
 const onInput = () => {
     // Handle input event if needed
 };
@@ -42,7 +43,7 @@ const onSearch = async () => {
     loading.value = true;
 
     try {
-        const response = await axios.get(`http://localhost:3000/api/search`, {
+        const response = await axios.get(`${API_URL}/search`, {
             params: {
                 q: query.value
             }

@@ -8,12 +8,12 @@ const password = ref('')
 const email = ref('')
 const lvl = ref('')
 const message = ref('')
-
+const API_URL = import.meta.env.VITE_APP_API;
 // Function to handle form submission
 const submitForm = async () => {
   const token = Cookies.get('accessToken');
   try {
-    const response = await axios.post('https://localhost:3000/api/users/create', {
+    const response = await axios.post(`${API_URL}/users/create`, {
       name: name.value,
       password: password.value,
       email: email.value,

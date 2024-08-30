@@ -6,11 +6,12 @@ import { user } from '../../mixins/authMixin'
 const route = useRoute();
 const books = ref([])
 import BookCard from '@/components/BookCard.vue';
+const API_URL = import.meta.env.VITE_APP_API;
 const fetchUserBooks = async () => {
     const username = route.params.username;
 
     try {
-        const { data } = await axios.get(`http://localhost:3000/api/${username}/books`);
+        const { data } = await axios.get(`${API_URL}/${username}/books`);
         books.value = data;
     } catch (error) {
         console.error(`Error fetching books for user ${username}`, error);

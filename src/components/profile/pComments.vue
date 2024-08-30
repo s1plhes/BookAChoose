@@ -15,7 +15,7 @@ const route = useRoute();
 const comments = ref([]);
 const newComment = ref('');
 const replyTo = ref(null);
-
+const API_URL = import.meta.env.VITE_APP_API;
 // Para almacenar el comentario al que se está respondiendo
 
 
@@ -24,7 +24,7 @@ const userName = route.params.username; // Deberás obtener esto dinámicamente 
 // Carga los comentarios al montar el componente
 onMounted(async () => {
     try {
-        const response = await axios.get(`http://localhost:3000/api/comments/p/${userName}`);
+        const response = await axios.get(`${API_URL}/comments/p/${userName}`);
         comments.value = buildCommentTree(response.data);
         console.log("Executed query with profile_id:", user.id);
     } catch (error) {

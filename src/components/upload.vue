@@ -11,7 +11,7 @@ import { ref } from 'vue';
 
 const selectedFile = ref(null);
 const message = ref('');
-
+const API_URL = import.meta.env.VITE_APP_API;
 function handleFileUpload(event) {
     selectedFile.value = event.target.files[0];
 }
@@ -26,7 +26,7 @@ async function uploadFile() {
     formData.append('file', selectedFile.value);
 
     try {
-        const response = await fetch('http://localhost:3000/api/upload', {
+        const response = await fetch(`${API_URL}/upload`, {
             method: 'POST',
             body: formData,
         });

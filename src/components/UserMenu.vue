@@ -30,7 +30,7 @@ const closeDropdown = (event) => {
   }
 };
 
-const avatar = ref(Cookies.get("avatar"));
+
 </script>
 
 <template>
@@ -40,7 +40,7 @@ const avatar = ref(Cookies.get("avatar"));
         class="inline-flex justify-center w-full rounded-md shadow-sm px-4 py-2 bg-slate-800/40 backdrop-blur-md text-sm font-medium text-slate-100 hover:bg-slate-600/20 focus:outline-none focus:ring-0 focus:ring-offset-0 focus:ring-slate-500"
         aria-expanded="true" aria-haspopup="true">
         <div class="space-x-5 inline-flex items-center">
-          <img :src="`${avatar}`" class="w-8 h-8 rounded-full mr-2 object-center" /> {{ placeholder }}
+          <img :src="`${user.avatar}`" class="w-8 h-8 rounded-full mr-2 object-center" /> {{ placeholder }}
           <svg class="-mr-1 ml-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
             aria-hidden="true">
             <path fill-rule="evenodd"

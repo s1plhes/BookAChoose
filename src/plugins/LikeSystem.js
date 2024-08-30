@@ -3,7 +3,9 @@ import axios from 'axios';
 import { ref } from 'vue';
 import { user } from '@/mixins/authMixin';
 import Cookies from 'js-cookie';
+
 const token = Cookies.get('accessToken');
+const API_URL = import.meta.env.VITE_APP_API;
 
 export default {
     install: (app) => {
@@ -12,7 +14,7 @@ export default {
         const fetchLike = async (userId, bookId, chapterId) => {
 
             try {
-                const { data } = await axios.get(`http://localhost:3000/api/like/${userId}/${bookId}/${chapterId}`, {
+                const { data } = await axios.get(`${API_URL}/like/${userId}/${bookId}/${chapterId}`, {
                     headers: {
                         Authorization: `${token}`  // Include the token in the Authorization header
                     }
@@ -32,7 +34,7 @@ export default {
             }
 
             try {
-                await axios.post(`http://localhost:3000/api/like/${userId}/${bookId}/${chapterId}`, {
+                await axios.post(`${API_URL}/like/${userId}/${bookId}/${chapterId}`, {
                     headers: {
                         'Authorization': `Bearer ${token}`
                     }
@@ -52,7 +54,7 @@ export default {
                 return;
             }
             try {
-                await axios.delete(`http://localhost:3000/api/like/${userId}/${bookId}/${chapterId}`, {
+                await axios.delete(`${API_URL}/like/${userId}/${bookId}/${chapterId}`, {
                     headers: {
                         'Authorization': `Bearer ${token}`
                     }

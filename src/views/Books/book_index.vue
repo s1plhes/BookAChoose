@@ -8,10 +8,10 @@ import FullBookCard from "@/components/fullBookCard.vue";
 const books = ref([]);
 const status = ref("");
 const chaptersCount = ref(0);
-
+const API_URL = import.meta.env.VITE_APP_API;
 const fetchBooks = async () => {
   try {
-    const { data } = await axios.get(`http://localhost:3000/api/books`);
+    const { data } = await axios.get(`${API_URL}/books`);
     books.value = data;
     chaptersCount.value = data.length;
   } catch (error) {

@@ -22,18 +22,21 @@ const usercookies = Cookies.get("name");
 
         <div class="w-full bg-white h-2/3 min-h-1/2 text-black p-6 mt-6 text-center">
           <div class="grid grid-cols-2 mx-auto space-x-3 justify-center items-center max-w-4xl p-6">
-            <div><img src="../assets/HAPPY.svg" class="hover:animate-ping" width="170px my-4"></div>
+            <div><img src="../assets/HAPPY.svg" width="170px my-4"></div>
             <div>
-              <h2 class="text-4xl">Read makes you happy?❤️</h2>
+              <h2 class="text-4xl">Read makes you <a class="underline decoration-red-500 ">happy?</a>❤️
+              </h2>
               <h3 class="text-2xl mb-4">Find lots of LOVELY stories to read</h3>
-              <Btn variant="yellow" class="text-2xl" href="/books">Let's go →</Btn>
+              <Btn variant="yellow" class="text-2xl mb-4" href="/books">Let's go →</Btn>
+
             </div>
           </div>
 
         </div>
 
       </MotionGroup>
-      <div>
+      <div class="w-full bg-white h-2/3 min-h-1/2 text-black p-6  text-center">
+
 
 
       </div>

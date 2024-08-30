@@ -9,7 +9,7 @@ import Cookies from 'js-cookie';
 import ErrorMessage from '@/components/ErrorMessage.vue';
 import { Head } from '@unhead/vue/components';
 
-
+const API_URL = import.meta.env.VITE_APP_API;
 const router = useRouter();
 const title = ref('');
 const description = ref('');
@@ -39,7 +39,7 @@ const createBook = async (event) => {
     }
     try {
         const { data } = await axios.post(
-            'http://localhost:3000/api/book/create',
+            `${API_URL}/book/create`,
             {
                 title: title.value,
                 author: author,
@@ -76,7 +76,7 @@ async function uploadFile(file) {
     formData.append('file', file);
 
     try {
-        const response = await fetch('http://localhost:3000/api/upload', {
+        const response = await fetch(`${API_URL}/upload`, {
             method: 'POST',
             body: formData,
         });

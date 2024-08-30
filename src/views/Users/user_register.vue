@@ -82,7 +82,7 @@ const password = ref("");
 const Confirm_password = ref("");
 const errorMessage = ref("");
 const successMessage = ref("");
-
+const API_URL = import.meta.env.VITE_APP_API;
 const passwordLength = computed(() => password.value.length >= 8);
 const hasUppercase = computed(() => /[A-Z]/.test(password.value));
 const hasLowercase = computed(() => /[a-z]/.test(password.value));
@@ -104,7 +104,7 @@ const register = async () => {
     const token = Cookies.get("accessToken");
     try {
         const response = await axios.post(
-            "http://localhost:3000/api/register",
+            `${API_URL}/register`,
             {
                 name: name.value,
                 email: email.value,

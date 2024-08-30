@@ -19,10 +19,11 @@ const chapterId = route.params.chapterId
 const title = ref('')
 const editor = ref('')
 const update_at = ref('')
+const API_URL = import.meta.env.VITE_APP_API;
 
 const fetchChapterData = async () => {
     try {
-        const response = await axios.get(`http://localhost:3000/api/book/${bookId}/chapter/${chapterId}`)
+        const response = await axios.get(`${API_URL}/book/${bookId}/chapter/${chapterId}`)
         chapterContent.value = response.data.body
         title.value = response.data.title
         editor.value = response.data.chapter_editor
@@ -39,7 +40,7 @@ const fetchChapterData = async () => {
 
 const saveChapter = async () => {
     try {
-        await axios.put(`http://localhost:3000/api/chapter/${chapterId}`,
+        await axios.put(`${API_URL}/chapter/${chapterId}`,
             {
                 //send data
                 title: title.value,

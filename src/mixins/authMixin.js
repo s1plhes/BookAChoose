@@ -5,9 +5,8 @@ import { ref } from 'vue';
 export const user = ref(null);
 
 export const decodeJWT = (token) => {
+  if (!token) return null;
   const base64Url = token.split('.')[1];
-  if (!base64Url) throw new Error('Invalid token format');
-
   const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
   const jsonPayload = decodeURIComponent(atob(base64).split('').map(function (c) {
     return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
@@ -15,6 +14,7 @@ export const decodeJWT = (token) => {
 
   return JSON.parse(jsonPayload);
 };
+
 
 export default {
   created() {

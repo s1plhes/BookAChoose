@@ -88,6 +88,8 @@ const pid = ref("");
 const comments = ref([]);
 const newComment = ref("");
 const replyTo = ref(null);
+const API_URL = import.meta.env.VITE_APP_API;
+
 
 function buildCommentTree(comments, parentId = null) {
   const tree = [];
@@ -126,7 +128,7 @@ const addComment = async () => {
   if (newComment.value.trim()) {
     try {
       const response = await axios.post(
-        "http://localhost:3000/api/comment/p",
+        `${API_URL}/comment/p`,
         {
           userId: userId, // Obtenido del mixin o cookies
           profileName: userName, // Nombre de usuario de destino
@@ -165,7 +167,7 @@ const addComment = async () => {
 onMounted(async () => {
   //Let's gather user data
   try {
-    const response = await fetch(`http://localhost:3000/api/${profileUserName}/data`);
+    const response = await fetch(`${API_URL}/${profileUserName}/data`);
     const data = await response.json();
     profileUser.value = data;
     //setting pid
@@ -177,7 +179,7 @@ onMounted(async () => {
   if (pid) {
     try {
       const response = await axios.get(
-        `http://localhost:3000/api/profile/comments/${pid.value}`
+        `${API_URL}/profile/comments/${pid.value}`
       );
       comments.value = buildCommentTree(response.data);
     } catch (error) {
