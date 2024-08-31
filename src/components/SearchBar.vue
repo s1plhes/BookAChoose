@@ -43,7 +43,7 @@ const onSearch = async () => {
     loading.value = true;
 
     try {
-        const response = await axios.get(`${process.env.API}/search`, {
+        const response = await axios.get(`${import.meta.env.VITE_API}/search`, {
             params: {
                 q: query.value
             }

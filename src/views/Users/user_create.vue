@@ -13,7 +13,7 @@ const API_URL = import.meta.env.VITE_APP_API;
 const submitForm = async () => {
   const token = Cookies.get('accessToken');
   try {
-    const response = await axios.post(`${process.env.API}/users/create`, {
+    const response = await axios.post(`${import.meta.env.VITE_API}/users/create`, {
       name: name.value,
       password: password.value,
       email: email.value,

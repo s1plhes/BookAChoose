@@ -49,7 +49,7 @@ const GetUserData = async () => {
     try {
         if (user && user.value && user.value.userId) {
             const response = await axios.get(
-                `${process.env.API}/users/${user.value.userId}`
+                `${import.meta.env.VITE_API}/users/${user.value.userId}`
             );
             if (response.status === 200) {
                 name.value = sanitizeInput(response.data.name);
@@ -101,7 +101,7 @@ const UpdateUser = async () => {
         }
 
         const response = await axios.put(
-            `${process.env.API}/users/${user.value.userId}`,
+            `${import.meta.env.VITE_API}/users/${user.value.userId}`,
             updateData,
             {
                 headers: {
@@ -134,7 +134,7 @@ async function uploadFile(file) {
     formData.append("file", file);
 
     try {
-        const response = await fetch(`${process.env.API}/upload`, {
+        const response = await fetch(`${import.meta.env.VITE_API}/upload`, {
             method: "POST",
             body: formData,
         });

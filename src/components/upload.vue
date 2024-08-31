@@ -26,7 +26,7 @@ async function uploadFile() {
     formData.append('file', selectedFile.value);
 
     try {
-        const response = await fetch(`${process.env.API}/upload`, {
+        const response = await fetch(`${import.meta.env.VITE_API}/upload`, {
             method: 'POST',
             body: formData,
         });

@@ -18,7 +18,7 @@ const chapterId = route.params.chapterId; // Deberás obtener esto dinámicament
 onMounted(async () => {
   try {
     const response = await axios.get(
-      `${process.env.API}/comments/${bookId}/${chapterId}`
+      `${import.meta.env.VITE_API}/comments/${bookId}/${chapterId}`
     );
     comments.value = buildCommentTree(response.data);
   } catch (error) {
@@ -46,7 +46,7 @@ const addComment = async () => {
   if (newComment.value.trim()) {
     try {
       const response = await axios.post(
-        `${process.env.API}/comment`,
+        `${import.meta.env.VITE_API}/comment`,
         {
           userId: userId, // Asegúrate de que userId esté almacenado en Cookies
           bookId,

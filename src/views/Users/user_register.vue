@@ -104,7 +104,7 @@ const register = async () => {
     const token = Cookies.get("accessToken");
     try {
         const response = await axios.post(
-            `${process.env.API}/register`,
+            `${import.meta.env.VITE_API}/register`,
             {
                 name: name.value,
                 email: email.value,

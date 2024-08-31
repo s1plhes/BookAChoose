@@ -11,7 +11,7 @@ const chaptersCount = ref(0);
 
 const fetchBooks = async () => {
   try {
-    const { data } = await axios.get(`${process.env.API}/books`);
+    const { data } = await axios.get(`${import.meta.env.VITE_API}/books`);
     books.value = data;
     chaptersCount.value = data.length;
   } catch (error) {

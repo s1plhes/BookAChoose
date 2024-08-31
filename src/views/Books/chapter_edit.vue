@@ -23,7 +23,7 @@ const API_URL = import.meta.env.VITE_APP_API;
 
 const fetchChapterData = async () => {
     try {
-        const response = await axios.get(`${process.env.API}/book/${bookId}/chapter/${chapterId}`)
+        const response = await axios.get(`${import.meta.env.VITE_API}/book/${bookId}/chapter/${chapterId}`)
         chapterContent.value = response.data.body
         title.value = response.data.title
         editor.value = response.data.chapter_editor
@@ -40,7 +40,7 @@ const fetchChapterData = async () => {
 
 const saveChapter = async () => {
     try {
-        await axios.put(`${process.env.API}/chapter/${chapterId}`,
+        await axios.put(`${import.meta.env.VITE_API}/chapter/${chapterId}`,
             {
                 //send data
                 title: title.value,

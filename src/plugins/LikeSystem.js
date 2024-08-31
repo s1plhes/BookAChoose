@@ -14,7 +14,7 @@ export default {
         const fetchLike = async (userId, bookId, chapterId) => {
 
             try {
-                const { data } = await axios.get(`${process.env.API}/like/${userId}/${bookId}/${chapterId}`, {
+                const { data } = await axios.get(`${import.meta.env.VITE_API}/like/${userId}/${bookId}/${chapterId}`, {
                     headers: {
                         Authorization: `${token}`  // Include the token in the Authorization header
                     }
@@ -34,7 +34,7 @@ export default {
             }
 
             try {
-                await axios.post(`${process.env.API}/like/${userId}/${bookId}/${chapterId}`, {
+                await axios.post(`${import.meta.env.VITE_API}/like/${userId}/${bookId}/${chapterId}`, {
                     headers: {
                         'Authorization': `Bearer ${token}`
                     }
@@ -54,7 +54,7 @@ export default {
                 return;
             }
             try {
-                await axios.delete(`${process.env.API}/like/${userId}/${bookId}/${chapterId}`, {
+                await axios.delete(`${import.meta.env.VITE_API}/like/${userId}/${bookId}/${chapterId}`, {
                     headers: {
                         'Authorization': `Bearer ${token}`
                     }

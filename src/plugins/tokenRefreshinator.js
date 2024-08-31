@@ -13,7 +13,7 @@ axios.interceptors.response.use(
             const refreshToken = localStorage.getItem('refreshToken');
             if (refreshToken) {
                 try {
-                    const response = await axios.post(`${process.env.API}/api/refresh-token`, {}, {
+                    const response = await axios.post(`${import.meta.env.VITE_API}/api/refresh-token`, {}, {
                         headers: {
                             'Authorization': `Bearer ${refreshToken}`
                         }
