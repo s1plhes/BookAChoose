@@ -26,7 +26,7 @@ const updateChapterContent = (event) => {
 
 const fetchBookData = async () => {
     try {
-        const response = await axios.get(`${API_URL}/book/${bookId}`);
+        const response = await axios.get(`${process.env.API}/book/${bookId}`);
         bookData.value = response.data;
     } catch (error) {
         console.error(error);
@@ -38,7 +38,7 @@ const createChapter = async (event) => {
     event.preventDefault();
     const token = Cookies.get('accessToken');
     try {
-        const response = await axios.post(`${API_URL}/chapter/create`, {
+        const response = await axios.post(`${process.env.API}/chapter/create`, {
             book_id: bookId,
             title: chapterTitle.value,
             body: chapterContent.value

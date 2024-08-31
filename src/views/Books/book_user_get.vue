@@ -11,7 +11,7 @@ const fetchUserBooks = async () => {
     const username = route.params.username;
 
     try {
-        const { data } = await axios.get(`${API_URL}/${username}/books`);
+        const { data } = await axios.get(`${process.env.API}/${username}/books`);
         books.value = data;
     } catch (error) {
         console.error(`Error fetching books for user ${username}`, error);

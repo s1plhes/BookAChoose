@@ -128,7 +128,7 @@ const addComment = async () => {
   if (newComment.value.trim()) {
     try {
       const response = await axios.post(
-        `${API_URL}/comment/p`,
+        `${process.env.API}/comment/p`,
         {
           userId: userId, // Obtenido del mixin o cookies
           profileName: userName, // Nombre de usuario de destino
@@ -167,7 +167,7 @@ const addComment = async () => {
 onMounted(async () => {
   //Let's gather user data
   try {
-    const response = await fetch(`${API_URL}/${profileUserName}/data`);
+    const response = await fetch(`${process.env.API}/${profileUserName}/data`);
     const data = await response.json();
     profileUser.value = data;
     //setting pid
@@ -179,7 +179,7 @@ onMounted(async () => {
   if (pid) {
     try {
       const response = await axios.get(
-        `${API_URL}/profile/comments/${pid.value}`
+        `${process.env.API}/profile/comments/${pid.value}`
       );
       comments.value = buildCommentTree(response.data);
     } catch (error) {

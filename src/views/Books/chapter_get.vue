@@ -24,7 +24,7 @@ const API_URL = import.meta.env.VITE_APP_API;
 const fetchABook = async () => {
   try {
     const { data } = await axios.get(
-      `${API_URL}/book/${bookId}/chapter/${chapterId}`
+      `${process.env.API}/book/${bookId}/chapter/${chapterId}`
     );
     bookData.value = data;
     chapterData.value = formatTextLikeBook(data.body);
@@ -53,7 +53,7 @@ const decreaseFontSize = () => {
 const recordView = async () => {
   if (!viewRecorded.value) {
     try {
-      await axios.post(`${API_URL}/chapter/${id}/view`);
+      await axios.post(`${process.env.API}/chapter/${id}/view`);
       viewRecorded.value = true;
       console.log("View recorded");
     } catch {
@@ -64,7 +64,7 @@ const recordView = async () => {
 const getLikes = async () => {
   try {
     const { data } = await axios.get(
-      `${API_URL}/count/likes/${bookId}/${chapterId}`
+      `${process.env.API}/count/likes/${bookId}/${chapterId}`
     );
 
     // Extract 'likes' from the response data

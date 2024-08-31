@@ -102,7 +102,7 @@ const login = async () => {
   loading.value = true;
 
   try {
-    const response = await axios.post(`${API_URL}/login`, {
+    const response = await axios.post(`${process.env.API}/login`, {
       email: email.value,
       password: password.value,
     });
@@ -113,7 +113,7 @@ const login = async () => {
 
       const decodedJWT = decodeJWT(accessToken);
       if (decodedJWT && decodedJWT.userId) {
-        const userResponse = await axios.get(`${API_URL}/users/${decodedJWT.userId}`);
+        const userResponse = await axios.get(`${process.env.API}/users/${decodedJWT.userId}`);
 
         if (userResponse.status === 200 && userResponse.data) {
           user.value = userResponse.data;

@@ -132,7 +132,7 @@ const API_URL = import.meta.env.VITE_APP_API;
 const fetchABook = async () => {
   console.log("Fetching book...");
   try {
-    const { data } = await axios.get(`${API_URL}/book/${id}`);
+    const { data } = await axios.get(`${process.env.API}/book/${id}`);
     bookData.value = data;
 
     console.log("Book data:", data);
@@ -144,7 +144,7 @@ const fetchABook = async () => {
 const fetchChapters = async () => {
   console.log("Fetching chapters...");
   try {
-    const { data } = await axios.get(`${API_URL}/allchapters/${id}`);
+    const { data } = await axios.get(`${process.env.API}/allchapters/${id}`);
     chapters.value = data;
   } catch (error) {
     console.error("Error fetching chapters:", error);
@@ -155,7 +155,7 @@ const deleteBook = async () => {
   const token = Cookies.get("accessToken");
   if (deletePhrase.value === "DELETE") {
     try {
-      await axios.delete(`${API_URL}/book/delete/${id}`, {
+      await axios.delete(`${process.env.API}/book/delete/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -181,7 +181,7 @@ const deleteBook = async () => {
 
 const getLikes = async () => {
   try {
-    const { data } = await axios.get(`${API_URL}/count/likes/${bookId}/0`);
+    const { data } = await axios.get(`${process.env.API}/count/likes/${bookId}/0`);
 
     // Extract 'likes' from the response data
     if (data && typeof data.likes === "number") {

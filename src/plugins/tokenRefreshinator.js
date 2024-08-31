@@ -13,7 +13,7 @@ axios.interceptors.response.use(
             const refreshToken = localStorage.getItem('refreshToken');
             if (refreshToken) {
                 try {
-                    const response = await axios.post(`${API_URL}/api/refresh-token`, {}, {
+                    const response = await axios.post(`${process.env.API}/api/refresh-token`, {}, {
                         headers: {
                             'Authorization': `Bearer ${refreshToken}`
                         }

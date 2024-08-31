@@ -24,7 +24,7 @@ const userName = route.params.username; // Deberás obtener esto dinámicamente 
 // Carga los comentarios al montar el componente
 onMounted(async () => {
     try {
-        const response = await axios.get(`${API_URL}/comments/p/${userName}`);
+        const response = await axios.get(`${process.env.API}/comments/p/${userName}`);
         comments.value = buildCommentTree(response.data);
         console.log("Executed query with profile_id:", user.id);
     } catch (error) {

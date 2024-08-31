@@ -21,7 +21,7 @@ const API_URL = import.meta.env.VITE_APP_API;
 
 const loadBook = async () => {
     try {
-        const response = await axios.get(`${API_URL}/book/${route.params.bookId}`)
+        const response = await axios.get(`${process.env.API}/book/${route.params.bookId}`)
         title.value = response.data.title
         author.value = response.data.author
         description.value = response.data.description
@@ -52,7 +52,7 @@ const updateBook = async () => {
 
     try {
         const response = await axios.put(
-            `${API_URL}/book/update/${route.params.bookId}`,
+            `${process.env.API}/book/update/${route.params.bookId}`,
             {
                 title: title.value,
                 author: author.value,
@@ -92,7 +92,7 @@ async function uploadFile(file) {
     formData.append('file', file);
 
     try {
-        const response = await fetch(`${API_URL}/api/upload`, {
+        const response = await fetch(`${process.env.API}/api/upload`, {
             method: 'POST',
             body: formData,
         });

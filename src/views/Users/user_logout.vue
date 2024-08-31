@@ -12,7 +12,7 @@ const API_URL = import.meta.env.VITE_APP_API;
 const logout = async () => {
     const token = Cookies.get('accessToken');
     try {
-        const response = await axios.post(`${API_URL}/logout`, {}, {
+        const response = await axios.post(`${process.env.API}/logout`, {}, {
             headers: {
                 Authorization: `Bearer ${token}`,
             },

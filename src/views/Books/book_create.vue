@@ -39,7 +39,7 @@ const createBook = async (event) => {
     }
     try {
         const { data } = await axios.post(
-            `${API_URL}/book/create`,
+            `${process.env.API}/book/create`,
             {
                 title: title.value,
                 author: author,
@@ -76,7 +76,7 @@ async function uploadFile(file) {
     formData.append('file', file);
 
     try {
-        const response = await fetch(`${API_URL}/upload`, {
+        const response = await fetch(`${process.env.API}/upload`, {
             method: 'POST',
             body: formData,
         });

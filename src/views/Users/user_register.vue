@@ -104,7 +104,7 @@ const register = async () => {
     const token = Cookies.get("accessToken");
     try {
         const response = await axios.post(
-            `${API_URL}/register`,
+            `${process.env.API}/register`,
             {
                 name: name.value,
                 email: email.value,

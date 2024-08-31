@@ -43,7 +43,7 @@ const onSearch = async () => {
     loading.value = true;
 
     try {
-        const response = await axios.get(`${API_URL}/search`, {
+        const response = await axios.get(`${process.env.API}/search`, {
             params: {
                 q: query.value
             }

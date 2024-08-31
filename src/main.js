@@ -13,6 +13,7 @@ import autoGlobalComponents from './plugins/autoGlobalComponents';
 import { i18n } from './lang/langConfig';
 import LikeSystem from './plugins/LikeSystem';
 import envVariables from './plugins/envVariables'  // Importa el plugin
+import 'dotenv/config'
 
 
 // Crear instancia para manejar el head de la app
