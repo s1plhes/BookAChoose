@@ -11,7 +11,7 @@ const chaptersCount = ref(0);
 const API_URL = import.meta.env.VITE_APP_API;
 const fetchBooks = async () => {
   try {
-    const { data } = await axios.get(`${API_URL}/books`);
+    const { data } = await axios.get(`https://api-db-dbxo.onrender.com/api/books`);
     books.value = data;
     chaptersCount.value = data.length;
   } catch (error) {
