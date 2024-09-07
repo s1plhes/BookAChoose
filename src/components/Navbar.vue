@@ -8,7 +8,7 @@ import logo from "@/icons/logo.svg";
 <template>
     <!--Main Navigation-->
     <nav class="xl:sticky xs:sticky text-white shadow-md bg-transparent backdrop-filter
-     backdrop-blur-lg bg-opacity-30 top-0 z-40  sm:mx-6 mx-6">
+     backdrop-blur-lg bg-opacity-30 top-0 z-40">
         <div class="">
             <div class=" grid sm:grid-cols-1 md:grid-cols-3 xl:grid-cols-3 gap-6 justify-center
          items-center mx-auto max-w-6xl sm:px-6 lg:px-8">

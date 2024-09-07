@@ -11,9 +11,9 @@
     <meta name="author" :content="bookData.author" />
   </Head>
   <div class="px-6 max-w-6xl mx-auto">
-    <div v-if="bookData && bookData.title">
+    <div v-if="bookData && bookData.title" class="mb-6">
       <!-- Tools toolbar -->
-      <Btn class="mb-10" variant="primary" :href="`/books/`"> ← Back </Btn>
+      <Back />
       <div v-if="user" class="p-2 my-3 backdrop-blur-sm bg-slate-900/20 rounded w-fit">
         <div v-if='bookData.author === user.name || user.role === "admin"' class="space-x-4">
           <Btn variant="primary" :href="`/book/${bookData.id}/edit`"> Edit Book </Btn>

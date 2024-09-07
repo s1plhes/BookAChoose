@@ -16,7 +16,7 @@ useHead({
 
 <template>
 
-  <Navbar />
+  <Navbar class="w-full" />
   <!--Main Content-->
   <main class="pb-20">
     <RouterView class="h-screen max-w-6xl mx-auto -z-20" />
