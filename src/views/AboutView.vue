@@ -52,6 +52,6 @@ const features = [
       both writing and reading immersive stories.
     </p>
     <br />
-    <SepaRator />
+
   </article>
 </template>

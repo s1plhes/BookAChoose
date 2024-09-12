@@ -1,4 +1,5 @@
 <template>
+
   <Head>
     <title>Sign in | {{ SITE_NAME }}</title>
   </Head>
@@ -15,62 +16,34 @@
           <!-- Email Field -->
           <div>
             <label for="email" class="block text-slate-200 font-semibold">Email Address</label>
-            <input
-              type="email"
-              id="email"
-              v-model.trim="email"
-              placeholder="Enter Email Address"
-              class="input"
-              autofocus
-              autocomplete="on"
-              required
-            />
+            <input type="email" id="email" v-model.trim="email" placeholder="Enter Email Address" class="input"
+              autofocus autocomplete="on" required />
           </div>
           <!-- Password Field -->
           <div>
             <label for="password" class="block text-slate-200 font-semibold">Password</label>
-            <input
-              type="password"
-              id="password"
-              v-model.trim="password"
-              placeholder="Enter Password"
-              minlength="8"
-              autocomplete="on"
-              class="input"
-              required
-            />
+            <input type="password" id="password" v-model.trim="password" placeholder="Enter Password" minlength="8"
+              autocomplete="on" class="input" required />
           </div>
           <!-- Forgot Password Link -->
           <div class="text-right">
-            <a
-              href="#"
-              class="text-sm font-semibold text-slate-200 hover:text-yellow-700 focus:text-yellow-700"
-              >Forgot Password?</a
-            >
+            <a href="#" class="text-sm font-semibold text-slate-200 hover:text-yellow-700 focus:text-yellow-700">Forgot
+              Password?</a>
           </div>
           <!-- Submit Button -->
           <button type="submit" class="p-4 rounded-md bg-yellow-500 text-black w-full">
             Login
           </button>
         </form>
-        <!-- SepaRator -->
         <hr class="my-6 border-gray-300" />
         <!-- Google Login Button -->
-        <button
-          type="button"
-          class="w-full bg-white hover:bg-gray-100 focus:bg-gray-100 text-gray-900 font-semibold rounded-lg px-4 py-3 border border-gray-300 flex items-center justify-center transition duration-300 ease-in-out"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            xmlns:xlink="http://www.w3.org/1999/xlink"
-            class="w-6 h-6"
-            viewBox="0 0 48 48"
-          >
+        <button type="button"
+          class="w-full bg-white hover:bg-gray-100 focus:bg-gray-100 text-gray-900 font-semibold rounded-lg px-4 py-3 border border-gray-300 flex items-center justify-center transition duration-300 ease-in-out">
+          <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="w-6 h-6"
+            viewBox="0 0 48 48">
             <defs>
-              <path
-                id="a"
-                d="M44.5 20H24v8.5h11.8C34.7 33.9 30.1 37 24 37c-7.2 0-13-5.8-13-13s5.8-13 13-13c3.1 0 5.9 1.1 8.1 2.9l6.4-6.4C34.6 4.1 29.6 2 24 2 11.8 2 2 11.8 2 24s9.8 22 22 22c11 0 21-8 21-22 0-1.3-.2-2.7-.5-4z"
-              />
+              <path id="a"
+                d="M44.5 20H24v8.5h11.8C34.7 33.9 30.1 37 24 37c-7.2 0-13-5.8-13-13s5.8-13 13-13c3.1 0 5.9 1.1 8.1 2.9l6.4-6.4C34.6 4.1 29.6 2 24 2 11.8 2 2 11.8 2 24s9.8 22 22 22c11 0 21-8 21-22 0-1.3-.2-2.7-.5-4z" />
             </defs>
             <clipPath id="b">
               <use xlink:href="#a" overflow="visible" />
@@ -86,9 +59,7 @@
         <!-- Sign-Up Link -->
         <p class="mt-8 text-center text-slate-200">
           Need an account?
-          <a href="/register" class="text-yellow-500 hover:text-yellow-700 font-semibold"
-            >Create an account</a
-          >
+          <a href="/register" class="text-yellow-500 hover:text-yellow-700 font-semibold">Create an account</a>
         </p>
 
         <!-- Error and Success Messages -->

@@ -38,9 +38,6 @@ onMounted(fetchBooks)
       </h1>
       <h2>All books with tag: "{{ route.params.tag }}"</h2>
     </div>
-
-    <SepaRator />
-
     <div class="flex mb-2">
       <Btn href="/books">back</Btn>
     </div>

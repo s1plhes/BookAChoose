@@ -3,49 +3,25 @@
     <div class="p-8 rounded-lg shadow-lg w-full max-w-md bg-glass">
       <h2 class="text-xl font-semibold text-center text-slate-100">Be part of this community</h2>
       <h2 class="text-2xl font-semibold text-center text-slate-100 mb-6">Sign Up</h2>
-      <SepaRator />
       <form @submit.prevent="register">
         <div class="mb-4">
           <label for="name" class="block text-sm font-medium text-slate-100">Name</label>
-          <input
-            type="text"
-            id="name"
-            v-model="name"
-            required
-            class="input"
-            placeholder="Enter your name"
-          />
+          <input type="text" id="name" v-model="name" required class="input" placeholder="Enter your name" />
         </div>
         <div class="mb-4">
           <label for="email" class="block text-sm font-medium text-slate-100">Email</label>
-          <input
-            type="email"
-            id="email"
-            v-model="email"
-            required
-            class="input"
-            placeholder="Enter your email"
-          />
+          <input type="email" id="email" v-model="email" required class="input" placeholder="Enter your email" />
         </div>
         <div class="mb-4">
           <label for="password" class="block text-sm font-medium text-slate-100">Password</label>
-          <input
-            type="password"
-            id="password"
-            v-model="password"
-            @input="validatePassword"
-            required
-            class="input"
-            placeholder="Enter your password"
-          />
+          <input type="password" id="password" v-model="password" @input="validatePassword" required class="input"
+            placeholder="Enter your password" />
           <div class="mt-2 text-sm">
             <p class="text-slate-100">Your Password must contain:</p>
-            <p
-              :class="{
-                'text-green-500': passwordLength,
-                'text-red-500': !passwordLength
-              }"
-            >
+            <p :class="{
+              'text-green-500': passwordLength,
+              'text-red-500': !passwordLength
+            }">
               8 characters
             </p>
             <p :class="{ 'text-green-500': hasUppercase, 'text-red-500': !hasUppercase }">
@@ -55,37 +31,22 @@
               1 lowercase
             </p>
             <p :class="{ 'text-green-500': hasNumber, 'text-red-500': !hasNumber }">1 number</p>
-            <p
-              :class="{
-                'text-green-500': hasSpecialCharacter,
-                'text-red-500': !hasSpecialCharacter
-              }"
-            >
+            <p :class="{
+              'text-green-500': hasSpecialCharacter,
+              'text-red-500': !hasSpecialCharacter
+            }">
               1 special character
             </p>
           </div>
         </div>
         <div class="mb-4">
-          <label for="confirm_password" class="block text-sm font-medium text-slate-100"
-            >Confirm Password</label
-          >
-          <input
-            type="password"
-            id="confirm_password"
-            v-model="confirm_password"
-            required
-            class="input"
-            placeholder="Confirm your password"
-          />
+          <label for="confirm_password" class="block text-sm font-medium text-slate-100">Confirm Password</label>
+          <input type="password" id="confirm_password" v-model="confirm_password" required class="input"
+            placeholder="Confirm your password" />
         </div>
 
-        <Btn
-          :disabled="!isFormValid"
-          variant="yellow"
-          class="w-full"
-          :class="{ 'opacity-50 cursor-not-allowed': !isFormValid }"
-          >Register</Btn
-        >
+        <Btn :disabled="!isFormValid" variant="yellow" class="w-full"
+          :class="{ 'opacity-50 cursor-not-allowed': !isFormValid }">Register</Btn>
       </form>
       <p v-if="errorMessage" class="mt-4 text-center text-sm text-red-600">
         {{ errorMessage }}

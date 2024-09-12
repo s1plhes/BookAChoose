@@ -115,7 +115,6 @@ onMounted(() => {
     <form @submit="createBook" class="mt-4">
       <h1 class="text-xl font-bold text-slate-100 mb-6">Create a New Book</h1>
       <h2 class="text-slate-200">Welcome to the Book creation wizard</h2>
-      <SepaRator />
       <div class="grid grid-cols-1 lg:grid-cols-2 space-x-12">
         <!-- column 1-->
         <div>
@@ -146,7 +145,6 @@ onMounted(() => {
       <Btn class="w-1/4 flex justify-center" variant="yellow" type="submit">Create Book</Btn>
     </form>
     <ErrorMessage :message="message" type="error" :autoClose="false" :autoCloseDelay="5000" />
-    <SepaRator />
   </section>
 </template>
 

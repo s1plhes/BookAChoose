@@ -63,7 +63,6 @@ onMounted(() => {
       <h2>{{ $t('books.subtitle') }}</h2>
     </div>
 
-    <SepaRator />
 
     <div class="flex mb-2">
       <Btn v-if="user" variant="primary" :href="`/book/create`">{{ $t('books.createBtn') }}</Btn>
@@ -78,7 +77,7 @@ onMounted(() => {
         <span for="tag" v-for="tag in tags" :key="tag.id" class="text-slate-100 space-x-6 inline-flex justify-center">
           <Btn class="text-sm text-black mr-2 leading-loose" :href="`/books/${tag.tag}`">{{
             tag.tag
-          }}</Btn>
+            }}</Btn>
         </span>
       </p>
     </div>
@@ -94,7 +93,6 @@ onMounted(() => {
       </div>
     </div>
 
-    <SepaRator />
     <p class="text-slate-100 text-3xl text-center my-4">ALL BOOKS</p>
     <div v-if="status" class="flex justify-center">
       <p class="text-red-500">{{ status }}</p>
