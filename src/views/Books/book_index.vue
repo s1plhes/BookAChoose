@@ -3,7 +3,6 @@ import { ref, onMounted } from 'vue'
 import axios from 'axios'
 import { user } from '../../mixins/authMixin'
 import { Head } from '@unhead/vue/components'
-import FullBookCard from '@/components/fullCard.vue'
 
 const books = ref([])
 const books2 = ref([])
@@ -49,6 +48,7 @@ onMounted(() => {
 </script>
 
 <template>
+
   <Head>
     <title>{{ $t('books.title') }} | {{ SITE_NAME }}</title>
     <meta name="robots" content="index,follow" />
@@ -75,12 +75,7 @@ onMounted(() => {
     <div id="tags  ">
       <p class="flex max-w-6xl mx-auto text-white items-center">
         tags:
-        <span
-          for="tag"
-          v-for="tag in tags"
-          :key="tag.id"
-          class="text-slate-100 space-x-6 inline-flex justify-center"
-        >
+        <span for="tag" v-for="tag in tags" :key="tag.id" class="text-slate-100 space-x-6 inline-flex justify-center">
           <Btn class="text-sm text-black mr-2 leading-loose" :href="`/books/${tag.tag}`">{{
             tag.tag
           }}</Btn>
@@ -92,11 +87,9 @@ onMounted(() => {
     </div>
 
     <div v-else class="bg-glass p-4 flex justify-center items-center mx-auto">
-      <div
-        class="grid place-content-center grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-1"
-      >
+      <div class="grid place-content-center grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-1">
         <div v-for="book in books2" :key="book.id" class="p-1">
-          <FullBookCard :book="book" :style="`${book.image}`" />
+          <FullCard :book="book" :style="`${book.image}`" />
         </div>
       </div>
     </div>
@@ -107,11 +100,9 @@ onMounted(() => {
       <p class="text-red-500">{{ status }}</p>
     </div>
     <div v-else class="flex justify-center items-center mx-auto">
-      <div
-        class="grid place-content-center grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-1"
-      >
+      <div class="grid place-content-center grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-1">
         <div v-for="book in books" :key="book.id" class="p-1">
-          <FullBookCard :book="book" :style="`${book.image}`" />
+          <FullCard :book="book" :style="`${book.image}`" />
         </div>
       </div>
     </div>
