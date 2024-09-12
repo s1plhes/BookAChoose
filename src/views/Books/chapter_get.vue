@@ -4,7 +4,6 @@ import { useRoute } from 'vue-router'
 import { user } from '../../mixins/authMixin'
 import { Head } from '@unhead/vue/components'
 import axios from 'axios'
-import SepaRator from '@/components/SepaRator.vue'
 import Cookies from 'js-cookie'
 
 const route = useRoute()
@@ -103,6 +102,7 @@ onUnmounted(() => {
 </script>
 
 <template>
+
   <Head v-if="bookData">
     <title>{{ bookData.title }} | Book-A-Choose</title>
     <meta name="robots" content="index,follow" />
@@ -116,18 +116,12 @@ onUnmounted(() => {
 
   <div class="max-w-6xl mx-auto p-4 mb-6 bg-glass rounded-lg text-white">
     <Btn class="text-black" variant="yellow" :href="`/book/${bookId}`">Back</Btn>
-    <SepaRator />
     <div class="space-y-3 mb-6">
       <!-- Tools toolbar -->
-      <div
-        v-if="user && bookData"
-        class="p-2 inline-flex items-center backdrop-blur-sm bg-slate-950 rounded space-x-5"
-      >
+      <div v-if="user && bookData" class="p-2 inline-flex items-center backdrop-blur-sm bg-slate-950 rounded space-x-5">
         <div v-if="bookData.author === user.id" class="space-x-4">
-          <RouterLink
-            v-tooltip="'Edit chapter'"
-            :to="`/book/${bookData.book_id}/chapter/${id}/edit`"
-            ><i class="fa-solid fa-pen-nib text-xl"></i>
+          <RouterLink v-tooltip="'Edit chapter'" :to="`/book/${bookData.book_id}/chapter/${id}/edit`"><i
+              class="fa-solid fa-pen-nib text-xl"></i>
           </RouterLink>
         </div>
         <!-- LIKE SYSTEM -->
@@ -135,24 +129,18 @@ onUnmounted(() => {
           <LikeBtn :userId="userId" :bookId :chapterId class="mr-2" />
           {{ likesCount }} likes
         </div>
-        <div><ViewIcon v-tooltip="'Views'" /> {{ bookData.views }}</div>
+        <div>
+          <ViewIcon v-tooltip="'Views'" /> {{ bookData.views }}
+        </div>
         <div>
           <span v-tooltip="'Font Size'"><i class="fa-solid fa-text-height"></i></span>
-          <button
-            v-tooltip="'Decrease Font Size'"
-            type="button"
-            @click="decreaseFontSize"
-            class="bg-transparent px-2 py-1 rounded"
-          >
+          <button v-tooltip="'Decrease Font Size'" type="button" @click="decreaseFontSize"
+            class="bg-transparent px-2 py-1 rounded">
             <i class="fa-solid fa-circle-minus"></i>
           </button>
           <span v-tooltip="'Font Size'">{{ fontSize }}px</span>
-          <button
-            v-tooltip="'Increase Font Size'"
-            type="button"
-            @click="increaseFontSize"
-            class="bg-transparent px-2 py-1 rounded"
-          >
+          <button v-tooltip="'Increase Font Size'" type="button" @click="increaseFontSize"
+            class="bg-transparent px-2 py-1 rounded">
             <i class="fa-solid fa-circle-plus"></i>
           </button>
         </div>
@@ -165,11 +153,7 @@ onUnmounted(() => {
     <div v-if="bookData">
       <h2 class="text-4xl font-semibold mb-4">{{ bookData.title }}</h2>
 
-      <div
-        @click="whatsappShare"
-        v-tooltip="'Share on whatsapp'"
-        class="inline-flex mt-8 cursor-pointer text-2xl"
-      >
+      <div @click="whatsappShare" v-tooltip="'Share on whatsapp'" class="inline-flex mt-8 cursor-pointer text-2xl">
         <i class="fab fa-whatsapp mr-3" />
       </div>
 
@@ -178,15 +162,11 @@ onUnmounted(() => {
 
     <hr class="border-gray-700/20 my-4" />
 
-    <div
-      v-if="chapterData"
-      v-html="chapterData"
-      :style="{ fontSize: fontSize + 'px' }"
-      class="text-zinc-300 leading-relaxed first-line:uppercase first-line:tracking-widest text-justify"
-    ></div>
+    <div v-if="chapterData" v-html="chapterData" :style="{ fontSize: fontSize + 'px' }"
+      class="text-zinc-300 leading-relaxed first-line:uppercase first-line:tracking-widest text-justify"></div>
 
     <div class="py-6 flex justify-center">
-      <SepaRator />
+
 
       <a class="text-xl" :href="`/book/${bookId}/chapter/${nextChapter}`">Next chapter</a>
       <div class="text-2xl ml-6 text-white"></div>
