@@ -24,8 +24,6 @@
     </div>
     <a class="btn" href="/create-user">Create New User</a>
   </main>
-
-
 </template>
 
 <script setup>

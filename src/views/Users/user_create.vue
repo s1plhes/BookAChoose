@@ -1,28 +1,32 @@
 <script setup>
 import { ref } from 'vue'
 import axios from 'axios'
-import Cookies from "js-cookie";
+import Cookies from 'js-cookie'
 // Define reactive variables for form data
 const name = ref('')
 const password = ref('')
 const email = ref('')
 const lvl = ref('')
 const message = ref('')
-const API_URL = import.meta.env.VITE_APP_API;
+
 // Function to handle form submission
 const submitForm = async () => {
-  const token = Cookies.get('accessToken');
+  const token = Cookies.get('accessToken')
   try {
-    const response = await axios.post(`${import.meta.env.VITE_API}/users/create`, {
-      name: name.value,
-      password: password.value,
-      email: email.value,
-      lvl: lvl.value
-    }, {
-      headers: {
-        Authorization: `Bearer ${token}`  // Include the token in the Authorization header
+    const response = await axios.post(
+      `${import.meta.env.VITE_API}/users/create`,
+      {
+        name: name.value,
+        password: password.value,
+        email: email.value,
+        lvl: lvl.value
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}` // Include the token in the Authorization header
+        }
       }
-    })
+    )
 
     // Show success message
     message.value = `User created successfully with ID: ${response.data.id}`
@@ -67,6 +71,5 @@ const submitForm = async () => {
     </div>
   </div>
 </template>
-
 
 <style scoped></style>
