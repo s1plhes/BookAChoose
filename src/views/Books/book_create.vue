@@ -3,7 +3,6 @@ import { ref, onMounted } from 'vue'
 import axios from 'axios'
 import { useRouter } from 'vue-router'
 import { user } from '../../mixins/authMixin'
-import SepaRator from '@/components/SepaRator.vue'
 import { checkAuth } from '@/plugins/checkAuth'
 import Cookies from 'js-cookie'
 import ErrorMessage from '@/components/ErrorMessage.vue'
@@ -106,6 +105,7 @@ onMounted(() => {
 </script>
 
 <template>
+
   <Head>
     <title>Create book | {{ SITE_NAME }}</title>
   </Head>
@@ -121,36 +121,18 @@ onMounted(() => {
         <div>
           <div class="mb-4">
             <label for="title" class="block text-sm font-medium text-white">Title</label>
-            <input
-              type="text"
-              id="title"
-              v-model="title"
-              required
-              placeholder="Enter the book title"
-              class="input transition duration-200"
-            />
+            <input type="text" id="title" v-model="title" required placeholder="Enter the book title"
+              class="input transition duration-200" />
           </div>
           <div class="mb-4">
             <label for="author" class="block text-sm font-medium text-white">Author</label>
-            <input
-              type="text"
-              id="author"
-              v-model="author"
-              placeholder="Enter the book author"
-              class="input cursor-not-allowed"
-            />
+            <input type="text" id="author" v-model="author" placeholder="Enter the book author"
+              class="input cursor-not-allowed" />
           </div>
           <div class="mb-4">
-            <label for="description" class="block text-sm font-medium text-white"
-              >Description</label
-            >
-            <textarea
-              id="description"
-              v-model="description"
-              required
-              placeholder="Enter the book description"
-              class="input transit ion duration-200 resize-none h-32"
-            ></textarea>
+            <label for="description" class="block text-sm font-medium text-white">Description</label>
+            <textarea id="description" v-model="description" required placeholder="Enter the book description"
+              class="input transit ion duration-200 resize-none h-32"></textarea>
           </div>
         </div>
         <!-- column 2-->
