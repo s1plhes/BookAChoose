@@ -15,8 +15,9 @@ const chapters = ref([])
 const showModal = ref(false)
 const bookId = route.params.bookId
 const likesCount = ref(0)
-const userId = user.value.id
+
 const deletePhrase = ref('')
+
 
 const deleteBook = async () => {
   if (deletePhrase.value !== 'DELETE') {
@@ -101,7 +102,7 @@ onMounted(async () => {
               {{ bookData.author }}
             </RouterLink>
           <div v-if="user" class="inline-flex items-center space-x-2 text-white">
-            <LikeBtn :userId="userId" :bookId chapterId="0" />
+            <LikeBtn :userId="user.id" :bookId chapterId="0" />
             <span>{{ bookData.likes }} Likes</span>
           </div>
           </p>
