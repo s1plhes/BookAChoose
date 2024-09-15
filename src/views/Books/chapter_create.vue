@@ -9,29 +9,53 @@
         <div class="grid grid-cols-1 lg:grid-cols-3">
           <div class="col-span-2">
             <div class="form-group">
-              <label for="chapter-title" class="block text-xl font-medium text-gray-100">Chapter Title</label>
-              <input type="text" id="chapter-title" v-model="chapterTitle" required class="input"
-                placeholder="Enter the chapter title" />
+              <label for="chapter-title" class="block text-xl font-medium text-gray-100"
+                >Chapter Title</label
+              >
+              <input
+                type="text"
+                id="chapter-title"
+                v-model="chapterTitle"
+                required
+                class="input"
+                placeholder="Enter the chapter title"
+              />
             </div>
             <div class="mt-2">
               <!-- Editor toolbar -->
 
               <div>
                 <div id="editor-toolbar" class="inline-flex my-2">
-                  <button type="button" @click="formatText('bold')" class="btn btn-sm mr-2 text-white">
+                  <button
+                    type="button"
+                    @click="formatText('bold')"
+                    class="btn btn-sm mr-2 text-white"
+                  >
                     <i class="fa-solid fa-bold"></i>
                   </button>
-                  <button type="button" @click="formatText('italic')" class="btn btn-sm mr-2 text-white">
+                  <button
+                    type="button"
+                    @click="formatText('italic')"
+                    class="btn btn-sm mr-2 text-white"
+                  >
                     <i class="fa-solid fa-italic"></i>
                   </button>
-                  <button type="button" @click="formatText('underline')" class="btn btn-sm mr-2 text-white">
+                  <button
+                    type="button"
+                    @click="formatText('underline')"
+                    class="btn btn-sm mr-2 text-white"
+                  >
                     <i class="fa-solid fa-underline"></i>
                   </button>
                 </div>
                 <!-- Editor -->
-                <div contenteditable="true" id="editor" ref="editor"
+                <div
+                  contenteditable="true"
+                  id="editor"
+                  ref="editor"
                   class="input h-fit min-h-[40vh] font-sans text-white p-2 border border-yellow-500"
-                  @input="updateText"></div>
+                  @input="updateText"
+                ></div>
               </div>
 
               <Btn>Submit</Btn>

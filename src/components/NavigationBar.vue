@@ -52,7 +52,7 @@ import logo from '@/icons/logo.svg'
         </ul>
       </div>
       <div id="userBar" class="px-4">
-        <ul class="flex gap-4 text-white justify-center">
+        <ul class="flex gap-4 text-white justify-center items-center">
           <li class="space-x-2" v-if="user">
             <UserMenu :placeholder="user.name">
               <li v-if="user.role === 'admin'">
@@ -79,12 +79,11 @@ import logo from '@/icons/logo.svg'
             </UserMenu>
           </li>
           <li v-else>
-            <RouterLink class="nav-link hover:text-yellow-300" :to="`/Login`"
+            <RouterLink
+              class="nav-link text-lg text-yellow-500 hover:text-yellow-300"
+              :to="`/Login`"
               >Login{{ Messages }}
             </RouterLink>
-          </li>
-          <li>
-            <LangSelector />
           </li>
         </ul>
       </div>

@@ -22,7 +22,7 @@ export default {
         )
         likeData.value.liked = data.liked
       } catch (error) {
-        toast.error(`'${error}'`, {
+        toast.error(`Likes:'${error}'`, {
           autoClose: false,
           position: toast.POSITION.TOP_RIGHT,
           theme: 'dark'
@@ -53,7 +53,7 @@ export default {
           theme: 'dark'
         })
       } catch (error) {
-        toast.error(`'${error}'`, {
+        toast.error(`Likes:'${error}'`, {
           autoClose: false,
           position: toast.POSITION.TOP_RIGHT,
           theme: 'dark'
@@ -83,7 +83,7 @@ export default {
         })
         likeData.value.liked = false
       } catch (error) {
-        toast.error(`'${error}'`, {
+        toast.error(`Likes: '${error}'`, {
           autoClose: false,
           position: toast.POSITION.TOP_RIGHT,
           theme: 'dark'

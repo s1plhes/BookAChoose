@@ -1,107 +1,65 @@
 <script setup>
 import { ref, onMounted } from 'vue'
-import axios from 'axios'
 import { useRouter } from 'vue-router'
 import { user } from '../../mixins/authMixin'
 import { checkAuth } from '@/plugins/checkAuth'
-import Cookies from 'js-cookie'
+import uploadService from '@/services/uploadService'
 import ErrorMessage from '@/components/ErrorMessage.vue'
 import { Head } from '@unhead/vue/components'
 
+
+import { BookService } from '@/services/bookService'
+const bookService = new BookService()
+
+
 const router = useRouter()
-const title = ref('')
-const description = ref('')
-const image = ref('')
 const message = ref('')
-const author = user.value.name
-const selectedFile = ref(null) // Variable reactiva para el archivo seleccionado
+const selectedFile = ref(null)
+const bookData = ref({
+  title: '',
+  author: user.value.name,
+  description: '',
+  tags: ''
+})
 
 const createBook = async (event) => {
   event.preventDefault()
-  const token = Cookies.get('accessToken')
 
-  if (!token) {
-    message.value = 'Authorization token is missing. Please log in again.'
-    return
-  }
-  let bookImage = image.value // Mantén la URL actual del avatar
-
-  if (selectedFile.value) {
-    // Subir el nuevo avatar
-    const uploadResult = await uploadFile(selectedFile.value)
-    if (uploadResult) {
-      bookImage = uploadResult // Actualiza la URL del avatar
-    } else {
-      throw new Error('Book upload failed')
-    }
-  }
   try {
-    const { data } = await axios.post(
-      `${import.meta.env.VITE_API}/book/create`,
-      {
-        title: title.value,
-        author: author,
-        description: description.value,
-        image: bookImage
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      }
-    )
+    let bookImage = bookData.value.image; // Mantén la URL actual de la imagen
 
-    message.value = `Book created successfully with ID: ${data.id}`
-    resetForm()
-    router.push(`/book/${data.id}`)
+    if (selectedFile.value) {
+      // Subir el nuevo archivo
+      bookImage = await uploadService.uploadFile(selectedFile.value);
+    }
+
+    const data = await bookService.createBook(bookData.value, bookImage);
+    message.value = `Book created successfully with ID: ${data.id}`;
+    resetForm();
+    router.push(`/book/${data.id}`);
   } catch (error) {
-    console.error('Error creating book:', error) // Log the error for debugging
-    message.value = error.response?.data?.error || 'Error creating book'
+    console.error('Error creating book:', error);
+    message.value = error.message;
   }
-}
+};
+
 const resetForm = () => {
-  title.value = ''
-  description.value = ''
-  image.value = ''
-}
-async function uploadFile(file) {
-  if (!file) {
-    message.value = 'Please select a file first'
-    return null
-  }
+  bookData.value = {
+    title: '',
+    author: user.value.name,
+    description: '',
+    tags: ''
+  };
+  selectedFile.value = null;
+};
 
-  const formData = new FormData()
-  formData.append('file', file)
-
-  try {
-    const response = await fetch(`${import.meta.env.VITE_API}/upload`, {
-      method: 'POST',
-      body: formData
-    })
-
-    const result = await response.json()
-
-    if (result.success) {
-      return result.url
-    } else {
-      message.value = 'File upload failed: ' + result.message
-      return null
-    }
-  } catch (error) {
-    message.value = 'An error occurred: ' + error.message
-    return null
-  }
-}
-
-// Maneja el archivo cargado
 function handleFileUpload(event) {
-  selectedFile.value = event.target.files[0]
+  selectedFile.value = event.target.files[0];
 }
 
 onMounted(() => {
-  //Check if there's an authenticated user
-  checkAuth(user)
-})
+  checkAuth(user);
+});
 </script>
 
 <template>
@@ -120,20 +78,24 @@ onMounted(() => {
         <div>
           <div class="mb-4">
             <label for="title" class="block text-sm font-medium text-white">Title</label>
-            <input type="text" id="title" v-model="title" required placeholder="Enter the book title"
+            <input type="text" id="title" v-model="bookData.title" required placeholder="Enter the book title"
               class="input transition duration-200" />
           </div>
           <div class="mb-4">
             <label for="author" class="block text-sm font-medium text-white">Author</label>
-            <input type="text" id="author" v-model="author" placeholder="Enter the book author"
-              class="input cursor-not-allowed" />
+            <input type="text" id="author" v-model="bookData.author" class="input cursor-not-allowed" readonly />
           </div>
           <div class="mb-4">
             <label for="description" class="block text-sm font-medium text-white">Description</label>
-            <textarea id="description" v-model="description" required placeholder="Enter the book description"
-              class="input transit ion duration-200 resize-none h-32"></textarea>
+            <textarea id="description" v-model="bookData.description" required placeholder="Enter the book description"
+              class="input transition duration-200 resize-none h-32"></textarea>
+          </div>
+          <div class="mb-4">
+            <label for="tags" class="block text-sm font-medium text-white">Tags</label>
+            <input type="text" id="tags" v-model="bookData.tags" placeholder="Enter the tags" class="input" />
           </div>
         </div>
+
         <!-- column 2-->
         <div>
           <div class="mb-4">
@@ -147,7 +109,3 @@ onMounted(() => {
     <ErrorMessage :message="message" type="error" :autoClose="false" :autoCloseDelay="5000" />
   </section>
 </template>
-
-<style scoped>
-/* Optional: Additional styles if needed */
-</style>

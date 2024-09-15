@@ -119,7 +119,7 @@ function findCommentById(comments, id) {
 </script>
 
 <template>
-  <div class="comment-section p-4">
+  <div class="comment-section p-4 font-sans">
     <div v-if="user" class="mt-6">
       <div v-if="replyTo" class="mb-2 p-2 bg-blue-100 rounded-lg text-blue-800">
         Replying to: {{ replyTo.name }}
@@ -143,6 +143,9 @@ function findCommentById(comments, id) {
     </div>
 
     <h2 class="text-lg font-semibold mb-4">Member discussion</h2>
+    <h2 v-if="!user" class="text-md text-center font-semibold">
+      <RouterLink to="/login" class="text-yellow-500 italic">Sign in</RouterLink> and comment
+    </h2>
     <h2 v-if="comments.length === 0" class="text-md">
       There are no comments yet
       <p v-if="user">or you can start one</p>

@@ -4,118 +4,62 @@ import { useRoute, useRouter } from 'vue-router'
 import { user } from '../../mixins/authMixin'
 import { Head } from '@unhead/vue/components'
 import { formatDate } from '../../plugins/formatDate'
+import { BookService } from '@/services/bookService'
 import { toast } from 'vue3-toastify'
-import axios from 'axios'
-import Cookies from 'js-cookie'
 
+const bookService = new BookService()
 const route = useRoute()
-const router = useRouter() //for delete
-const deletePhrase = ref('') //for delete
+const router = useRouter()
 const bookData = ref([])
 const chapters = ref([])
-const id = route.params.bookId
 const showModal = ref(false)
 const bookId = route.params.bookId
-const userId = user.value.id
 const likesCount = ref(0)
-
-const fetchABook = async () => {
-  try {
-    const { data } = await axios.get(`${import.meta.env.VITE_API}/book/${id}`)
-    bookData.value = data
-  } catch (error) {
-    toast.error(`Error fetching book: ${error.message}`, {
-      autoClose: 3000,
-      position: toast.POSITION.TOP_CENTER,
-      theme: 'dark'
-    })
-  }
-}
-
-const fetchChapters = async () => {
-  try {
-    const { data } = await axios.get(`${import.meta.env.VITE_API}/allchapters/${id}`)
-    chapters.value = data
-  } catch (error) {
-    console.log('no chapters')
-  }
-}
+const userId = user.value.id
+const deletePhrase = ref('')
 
 const deleteBook = async () => {
-  const token = Cookies.get('accessToken')
-  if (deletePhrase.value === 'DELETE') {
-    try {
-      await axios.delete(`${import.meta.env.VITE_API}/book/delete/${id}`, {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      })
-
-      toast.success('Book deleted successfully', {
-        autoClose: 3000,
-        position: toast.POSITION.TOP_CENTER,
-        theme: 'dark',
-        onClose: () => router.go(0)
-      })
-
-
-    } catch (error) {
-      if (error.response && error.response.status === 404) {
-        toast.error('Book not found', {
-          autoClose: 3000,
-          position: toast.POSITION.TOP_CENTER,
-          theme: 'dark'
-        })
-
-      } else {
-        toast.error('Error deleting book', {
-          autoClose: 3000,
-          position: toast.POSITION.TOP_CENTER,
-          theme: 'dark'
-        })
-      }
-    } finally {
-      deletePhrase.value = ''
-    }
-  } else {
-    toast.error('error', {
+  if (deletePhrase.value !== 'DELETE') {
+    return toast.error('Invalid delete phrase', {
       autoClose: 3000,
       position: toast.POSITION.TOP_CENTER,
       theme: 'dark'
-    })
-    deletePhrase.value = ''
+    });
   }
-}
 
-const getLikes = async () => {
   try {
-    const { data } = await axios.get(`${import.meta.env.VITE_API}/count/likes/${bookId}/0`)
-
-    // Extract 'likes' from the response data
-    if (data && typeof data.likes === 'number') {
-      likesCount.value = data.likes
-    } else {
-      toast.error('Error getting likes', {
+    await bookService.deleteBook(bookId); // Llamas al servicio y pasas el token
+    toast.success('Book deleted successfully', {
+      autoClose: 3000,
+      position: toast.POSITION.TOP_CENTER,
+      theme: 'dark'
+    });
+    router.push('/books'); // Rediriges después de eliminar
+  } catch (error) {
+    if (error.response?.status === 404) {
+      toast.error('Book not found', {
         autoClose: 3000,
         position: toast.POSITION.TOP_CENTER,
         theme: 'dark'
-      })
+      });
+    } else {
+      toast.error(`Error deleting book: ${error.message}`, {
+        autoClose: 3000,
+        position: toast.POSITION.TOP_CENTER,
+        theme: 'dark'
+      });
     }
-  } catch (error) {
-    toast.error('Error getting likes', {
-      autoClose: 3000,
-      position: toast.POSITION.TOP_CENTER,
-      theme: 'dark'
-    })
+  } finally {
+    deletePhrase.value = ''; // Reseteas el campo después de la operación
   }
-}
+};
 
 const bookTags = ref({})
 
-onMounted(() => {
-  fetchABook()
-  getLikes()
-  fetchChapters()
+onMounted(async () => {
+  likesCount.value = await bookService.getBookLikes(bookId)
+  bookData.value = await bookService.getBookById(bookId)
+  chapters.value = await bookData.value.chapters
 })
 </script>
 
@@ -128,7 +72,6 @@ onMounted(() => {
     <meta property="og:title" :content="bookData.title" />
     <meta property="og:description" :content="bookData.description" />
     <meta property="og:image" :content="bookData.image" />
-    <meta property="og:url" :content="URL + '/book/' + bookData.id" />
     <meta name="author" :content="bookData.author" />
   </Head>
   <div class="px-2 max-w-6xl mx-auto">
@@ -185,7 +128,7 @@ onMounted(() => {
           <div>
             <h2 class="text-2xl font-bold text-zinc-50">Chapters</h2>
             <div class="mt-4">
-              <div v-if="chapters.length > 0">
+              <div v-if="bookData">
                 <ul class="space-y-1">
                   <RouterLink v-for="chapter in chapters" :key="chapter.chapter_id"
                     :to="`/book/${chapter.book_id}/chapter/${chapter.chapter_id}`" size="small" variant="text"

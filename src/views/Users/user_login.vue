@@ -1,5 +1,4 @@
 <template>
-
   <Head>
     <title>Sign in | {{ SITE_NAME }}</title>
   </Head>
@@ -16,19 +15,38 @@
           <!-- Email Field -->
           <div>
             <label for="email" class="block text-slate-200 font-semibold">Email Address</label>
-            <input type="email" id="email" v-model.trim="email" placeholder="Enter Email Address" class="input"
-              autofocus autocomplete="on" required />
+            <input
+              type="email"
+              id="email"
+              v-model.trim="email"
+              placeholder="Enter Email Address"
+              class="input"
+              autofocus
+              autocomplete="on"
+              required
+            />
           </div>
           <!-- Password Field -->
           <div>
             <label for="password" class="block text-slate-200 font-semibold">Password</label>
-            <input type="password" id="password" v-model.trim="password" placeholder="Enter Password" minlength="8"
-              autocomplete="on" class="input" required />
+            <input
+              type="password"
+              id="password"
+              v-model.trim="password"
+              placeholder="Enter Password"
+              minlength="8"
+              autocomplete="on"
+              class="input"
+              required
+            />
           </div>
           <!-- Forgot Password Link -->
           <div class="text-right">
-            <a href="#" class="text-sm font-semibold text-slate-200 hover:text-yellow-700 focus:text-yellow-700">Forgot
-              Password?</a>
+            <a
+              href="#"
+              class="text-sm font-semibold text-slate-200 hover:text-yellow-700 focus:text-yellow-700"
+              >Forgot Password?</a
+            >
           </div>
           <!-- Submit Button -->
           <button type="submit" class="p-4 rounded-md bg-yellow-500 text-black w-full">
@@ -36,7 +54,7 @@
           </button>
         </form>
         <hr class="my-6 border-gray-300" />
-        <!-- Google Login Button -->
+        <!-- Google Login Button 
         <button type="button"
           class="w-full bg-white hover:bg-gray-100 focus:bg-gray-100 text-gray-900 font-semibold rounded-lg px-4 py-3 border border-gray-300 flex items-center justify-center transition duration-300 ease-in-out">
           <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="w-6 h-6"
@@ -54,12 +72,14 @@
             <path clip-path="url(#b)" fill="#4285F4" d="M48 48L17 24l-4-3 35-10z" />
           </svg>
           <span class="ml-4">Log in with Google</span>
-        </button>
+        </button>-->
 
         <!-- Sign-Up Link -->
         <p class="mt-8 text-center text-slate-200">
           Need an account?
-          <a href="/register" class="text-yellow-500 hover:text-yellow-700 font-semibold">Create an account</a>
+          <a href="/register" class="text-yellow-500 hover:text-yellow-700 font-semibold"
+            >Create an account</a
+          >
         </p>
 
         <!-- Error and Success Messages -->

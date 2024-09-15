@@ -17,7 +17,7 @@ export const formatDate = (dateString) => {
 
 export const i18n = createI18n({
   locale: savedLang,
-  fallbackLocale: 'es',
+  fallbackLocale: 'en',
   messages: {
     en: {
       message: {
@@ -39,6 +39,9 @@ export const i18n = createI18n({
         name: 'Book Title',
         author: 'Author',
         description: 'Description'
+      },
+      account: {
+        register: 'Sign up'
       }
     },
     es: {

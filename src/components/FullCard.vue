@@ -33,9 +33,8 @@ const { title, author, description, id } = props.book
 
 <template>
   <article
-    class="relative p-4 rounded-lg shadow-lg space-y-4 max-w-lg mx-auto bg-center bg-no-repeat bg-cover min-h-48"
-    :style="`background:  url(${style}); background-size: cover; min-height: 35.5vmin;`"
-  >
+    class="relative p-4 rounded-lg shadow-lg space-y-4 max-w-[20vw] mx-auto bg-center bg-no-repeat bg-cover min-h-48"
+    :style="`background:  url(${style}); background-size: cover; min-height: 35.5vmin;`">
     <div :class="`${visible}`">
       <div class="space-y-2 bg-slate-900/30 backdrop-blur-md rounded-md py-8 px-4 text-slate-100">
         <h1 class="text-2xl font-bold font-mono line-clamp-2 leading-tight tracking-wide">

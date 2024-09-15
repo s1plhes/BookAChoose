@@ -150,7 +150,6 @@ onMounted(() => {
 })
 </script>
 <template>
-
   <Head>
     <title>Edit {{ title }} | {{ SITE_NAME }}</title>
   </Head>
@@ -174,11 +173,17 @@ onMounted(() => {
 
             <div class="mb-4">
               <label for="description" class="block text-2xl font-medium">Description</label>
-              <textarea id="description" v-model="description" required rows="auto"
-                class="peer input resize-none h-fit min-h-[30vh]"></textarea>
+              <textarea
+                id="description"
+                v-model="description"
+                required
+                rows="auto"
+                class="peer input resize-none h-fit min-h-[30vh]"
+              ></textarea>
             </div>
             <div class="mb-4">
-              <label for="tags" class="block text-2xl font-medium">Tags
+              <label for="tags" class="block text-2xl font-medium"
+                >Tags
                 <span class="text-sm">Write your book's tag separeting it with commas ,</span>
                 <input id="tags" v-model="tags" required rows="auto" class="peer input" />
               </label>
@@ -186,29 +191,55 @@ onMounted(() => {
             <div class="mb-4">
               <label for="image" class="block text-2xl font-medium">Cover</label>
               <!-- toggle image upload -->
-              <div class="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
-                <input type="checkbox" name="toggle" id="toggle" @click="toggleCoverURL"
-                  class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer" />
-                <label for="toggle"
-                  class="toggle-label block overflow-hidden h-6 rounded-full bg-yellow-500 cursor-pointer"></label>
+              <div
+                class="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in"
+              >
+                <input
+                  type="checkbox"
+                  name="toggle"
+                  id="toggle"
+                  @click="toggleCoverURL"
+                  class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer"
+                />
+                <label
+                  for="toggle"
+                  class="toggle-label block overflow-hidden h-6 rounded-full bg-yellow-500 cursor-pointer"
+                ></label>
               </div>
-              <label for="toggle" class="text-xs text-white">Toggle to switch between upload and enter URL.</label>
+              <label for="toggle" class="text-xs text-white"
+                >Toggle to switch between upload and enter URL.</label
+              >
 
               <!-- toggle image upload -->
-              <input type="file" id="image" @change="handleFileUpload" v-show="!toggleURL" class="input" />
-              <input type="text" id="imageURL" v-model="imageURL" v-show="toggleURL" class="input" />
+              <input
+                type="file"
+                id="image"
+                @change="handleFileUpload"
+                v-show="!toggleURL"
+                class="input"
+              />
+              <input
+                type="text"
+                id="imageURL"
+                v-model="imageURL"
+                v-show="toggleURL"
+                class="input"
+              />
             </div>
           </div>
           <div>
-            <img :src="image" alt="Book Image" v-if="image"
-              class="h-[25veh] aspect-auto mt-4 rounded-xs border border-gray-600 p-4" />
+            <img
+              :src="image"
+              alt="Book Image"
+              v-if="image"
+              class="h-[25veh] aspect-auto mt-4 rounded-xs border border-gray-600 p-4"
+            />
           </div>
         </div>
         <Btn variant="yellow" class="w-1/4 text-black justify-center">Update Book</Btn>
       </form>
     </div>
     <ErrorMessage :message="message" type="error" :autoClose="false" :autoCloseDelay="5000" />
-
   </main>
 </template>
 
@@ -218,7 +249,7 @@ onMounted(() => {
   border-color: #68d391;
 }
 
-.toggle-checkbox:checked+.toggle-label {
+.toggle-checkbox:checked + .toggle-label {
   background-color: #68d391;
 }
 </style>

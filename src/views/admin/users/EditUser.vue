@@ -7,13 +7,7 @@
             <label class="text-2xl">
               <p class="text-white">{{ accountEdited.name }}'s name | NEW: {{ account.name }}</p>
               <p>
-                <input
-                  class="input"
-                  type="text"
-                  name="name"
-                  v-model="account.name"
-                  :placeholder="accountEdited.name"
-                />
+                <input class="input" type="text" name="name" v-model="account.name" :placeholder="accountEdited.name" />
               </p>
             </label>
           </div>
@@ -21,13 +15,8 @@
             <label class="text-2xl">
               <p class="text-white">{{ accountEdited.name }}'s E-mail | NEW: {{ account.email }}</p>
               <p>
-                <input
-                  class="input"
-                  type="text"
-                  name="email"
-                  v-model="account.email"
-                  :placeholder="accountEdited.email"
-                />
+                <input class="input" type="text" name="email" v-model="account.email"
+                  :placeholder="accountEdited.email" />
               </p>
             </label>
           </div>
@@ -35,13 +24,7 @@
             <label class="text-2xl">
               <p class="text-white">{{ accountEdited.name }}'s Role | NEW: {{ account.role }}</p>
               <p>
-                <input
-                  class="input"
-                  type="text"
-                  name="role"
-                  v-model="account.role"
-                  :placeholder="accountEdited.role"
-                />
+                <input class="input" type="text" name="role" v-model="account.role" :placeholder="accountEdited.role" />
               </p>
             </label>
           </div>
@@ -54,19 +37,11 @@
                 {{ accountEdited.name }}'s Avatar | NEW: {{ account.avatar }}
               </p>
               <p>
-                <input
-                  class="input"
-                  type="text"
-                  name="role"
-                  v-model="account.avatar"
-                  :placeholder="accountEdited.avatar"
-                />
+                <input class="input" type="text" name="role" v-model="account.avatar"
+                  :placeholder="accountEdited.avatar" />
 
-                <img
-                  v-if="accountEdited.header_image"
-                  :src="accountEdited.avatar || account.avatar"
-                  class="h-[200PX] border"
-                />
+                <img v-if="accountEdited.header_image" :src="accountEdited.avatar || account.avatar"
+                  class="h-[200PX] border" />
               </p>
             </label>
           </div>
@@ -76,18 +51,10 @@
                 {{ accountEdited.name }}'s Avatar | NEW: {{ account.header_image }}
               </p>
               <p>
-                <input
-                  class="input"
-                  type="text"
-                  name="role"
-                  v-model="account.header_image"
-                  :placeholder="accountEdited.header_image"
-                />
-                <img
-                  v-if="accountEdited.header_image"
-                  :src="account.header_image || accountEdited.header_image"
-                  class="w-15 h-15 border"
-                />
+                <input class="input" type="text" name="role" v-model="account.header_image"
+                  :placeholder="accountEdited.header_image" />
+                <img v-if="accountEdited.header_image" :src="account.header_image || accountEdited.header_image"
+                  class="w-15 h-15 border" />
               </p>
             </label>
           </div>
@@ -106,12 +73,8 @@
 
     <Modal :showModal="showModal" title="Delete User" @update:showModal="showModal = $event">
       <p class="text-white my-2">Are you sure you want to delete this user?</p>
-      <input
-        class="input"
-        v-model="deletePhrase"
-        type="text"
-        :placeholder="`Enter 'Delete ${accountEdited.name}' to delete`"
-      />
+      <input class="input" v-model="deletePhrase" type="text"
+        :placeholder="`Enter 'Delete ${accountEdited.name}' to delete`" />
       <p class="text-red-500 my-2" v-if="deletePhrase !== `Delete ${accountEdited.name}`">
         Invalid delete phrase
       </p>
@@ -147,6 +110,7 @@ onMounted(async () => {
 })
 
 const UpdateUser = async () => {
+  const token = Cookies.get('accessToken')
   try {
     const updateData = {
       name: account.value.name,
@@ -155,7 +119,11 @@ const UpdateUser = async () => {
       avatar: account.value.avatar,
       header_image: account.value.header_image
     }
-    const response = await axios.put(`${import.meta.env.VITE_API}/users/${userId}`, updateData)
+    const response = await axios.put(`${import.meta.env.VITE_API}/users/${userId}`, updateData, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
 
     if (response.status === 200) {
       toast.success(`${accountEdited.value.name} edited successfully`, {

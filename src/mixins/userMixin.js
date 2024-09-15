@@ -15,6 +15,6 @@ export const isAdmin = (user) => {
   if (user.value.role === 'admin') {
     return true
   } else {
-    toast.error('error')
+    toast.error('user is not admin')
   }
 }

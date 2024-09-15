@@ -75,6 +75,7 @@ const router = createRouter({
     { path: `/test`, name: 'test', component: () => import('../views/testView.vue') },
     { path: '/:pathMatch(.*)*', name: 'notfound', component: () => import('../views/404.vue') },
     { path: `/404`, name: '404', component: () => import('../views/404.vue') },
+    { path: `/up`, name: 'up', component: () => import('../views/UpView.vue') },
 
     {
       path: '/hk',

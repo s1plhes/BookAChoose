@@ -24,7 +24,6 @@ onMounted(fetchBooks)
 </script>
 
 <template>
-
   <Head>
     <title>{{ $t('books.title') }} | {{ SITE_NAME }}</title>
     <meta name="robots" content="index,follow" />
@@ -47,7 +46,9 @@ onMounted(fetchBooks)
     </div>
 
     <div v-else class="flex justify-center items-center mx-auto">
-      <div class="grid place-content-center grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-1">
+      <div
+        class="grid place-content-center grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-1"
+      >
         <div v-for="book in books" :key="book.id" class="p-1">
           <FullCard :book="book" :style="`${book.image}`" />
         </div>

@@ -68,6 +68,7 @@ onMounted(async () => {
         <div class="col-span-2 p-4">
           <h1 class="text-white text-2xl">Overview</h1>
           <p>Hello {{ user.name }}, welcome to the administration centre</p>
+          <img src="http://localhost:3000/uploads/images/1726133126805-c0a66d25ced5b5f1e2cad949b9b39759%20(1).jpg">
         </div>
         <div>
           Metrics
